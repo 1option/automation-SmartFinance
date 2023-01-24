@@ -1,15 +1,34 @@
 package pages.authorization;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import pages.base.Base;
+import pages.base.BasePage;
 
-public class Login extends Base {
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
 
-    public Login(WebDriver driver) {
-        super(driver);
+public class Login extends BasePage {
+
+    private final SelenideElement divLoansLocator = $x("//div[contains(@class,'Loans_loans')]");
+    private final SelenideElement inputPasswordSmsCodeLocator = $x("//input[contains(@type,'password')]");
+    public final SelenideElement inputPhoneNumberLocator = $x("//input[contains(@name,'hone')]");
+
+
+    @Step("Ввести номер телефона")
+    public Login enterPhoneNumber(String phoneNumber) {
+        inputPhoneNumberLocator.shouldBe(visible).setValue(phoneNumber).pressEnter();
+        return this;
+    }
+
+    @Step("Ввести пароль")
+    public Login enterPassword(String password) {
+        inputPasswordSmsCodeLocator.shouldBe(visible).setValue(password).pressEnter();
+        return this;
+    }
+
+    @Step("Произошел вход в Личный кабинет")
+    public void isSigned() {
+        divLoansLocator.shouldBe(visible);
     }
 
 }

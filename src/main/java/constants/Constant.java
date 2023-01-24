@@ -17,15 +17,15 @@ public class Constant {
     }
 
     public static class UserData {
-        public static final String LOGIN_PHONE_NUMBER = "79131111111";
+        public static final String LOGIN_PHONE_NUMBER = "7913111111";
         public static final String REGISTRATION_PHONE_NUMBER = "79000000001";
         public static final String RECOVERY_PHONE_NUMBER = "79999999990";
         public static final String PASSWORD = "123456";
         public static final String SMS = "123456";
         public static final String RECOVERY_SMS = "1234";
-        public static final String PASSPORT_PHOTO_PATH = "/home/rworld/Документы/SmartFinance/tools/Java/Selenium/automation_SmartFinance/src/test/resources/passport.jpg";
         public static final File ACCOUNTS_LOG_FILE = new File("src/test/files/accounts.txt");
         public static final File ACCOUNTS_LOG_DIR = new File("src/test/files/");
+        public static final File PASSPORT_FILE = new File("src/test/files/passport.jpg");
 
     }
 
