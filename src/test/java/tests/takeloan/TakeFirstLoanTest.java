@@ -54,7 +54,7 @@ public class TakeFirstLoanTest extends BaseTest {
     @Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
     @Test
     public void takeLoan() {
-        //Значения хендлеров не меняем, по умолчанию будет: 10тыс, 15 дней
+        // Значения хендлеров не меняем, по умолчанию будет: 10тыс, 15 дней
         steps.enterPhoneNumber(randomPhoneNumber) // Случайный телефон (0 - автоодобрение)
                 .enterSmsCode("123456")
                 .acceptAllPolicy() // Принять все соглашения
