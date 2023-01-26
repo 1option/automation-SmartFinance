@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class LogoLink extends BasePage {
-    
+
     public final SelenideElement linkLogoLocator = $x("//a[contains(@class, 'logo')]");
     public final SelenideElement navHeaderMenuLocator = $x("//nav[contains(@class, 'header-menu')]");
 
