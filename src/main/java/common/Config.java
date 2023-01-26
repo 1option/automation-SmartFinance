@@ -15,15 +15,7 @@ public class Config {
      */
     public static final String BROWSER_NAME = "chrome";
 
-    /**
-     * Clear cookies after each iteration
-     */
-    public static Boolean CLEAR_COOKIES = true;
-
-    /**
-     * To keep the browser open after all tests
-     */
-    public static final Boolean HOLD_BROWSER_OPEN = true;
+    //    public static Boolean CLEAR_COOKIES = true;
 
     /**
      * Clear the directory with screenshots before starting tests
@@ -31,7 +23,7 @@ public class Config {
     public static final Boolean CLEAR_REPORTS_DIR = true;
 
     static {
-        Configuration.holdBrowserOpen = HOLD_BROWSER_OPEN;
+        Configuration.holdBrowserOpen = false;
         Configuration.browserSize = "1920x1080";
         Configuration.reportsFolder = "build/reports/tests";
         Configuration.browser = BROWSER_NAME;

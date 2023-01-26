@@ -32,11 +32,8 @@ replay_pid*
 # Surefire files
 .surefire*
 
-# .iml
-*.iml
-
 # Reports folder
 /build/
-/src/test/java/tests.draft.DraftTest.java
-/src/main/java/pages/draft/Draft.java
-/src/test/java/tests/draft/DraftTest.java
+
+# .attach
+.attach*

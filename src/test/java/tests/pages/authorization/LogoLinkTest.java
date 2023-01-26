@@ -1,4 +1,4 @@
-package tests.logo;
+package tests.pages.authorization;
 
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package tests.takeloan;
+package tests.pages.LK;
 
 import com.codeborne.selenide.Selenide;
 import com.github.javafaker.Faker;
@@ -71,7 +71,7 @@ public class TakeFirstLoanTest extends BaseTest {
                 .enterPassportIdentifier("0000100000")
                 .enterPassportIssuerDate("01012020")
                 .enterPassportIssuerCode("123456")
-                .enterPassportIssuerName("тест0 тест0 тест0")
+                .enterPassportIssuerName()
                 .enterBirtPlace("гор Москва")
                 .uploadPassport(PASSPORT_FILE) // Загрузить паспорт
                 .enterSnils("012-345-678 19")

@@ -1,6 +1,7 @@
-package tests.sms.positive;
+package tests.pages.authorization;
 
 import io.qameta.allure.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,12 @@ import static constants.Constant.UserData.REGISTRATION_PHONE_NUMBER;
 @Tag("Smoke")
 public class SendSmsPositiveTest extends BaseTest {
 
+    @AfterAll
+    @Step("Очистить куки")
+    public void clearCookie() {
+        clearBrowserCookieAndStorage();
+    }
+
     @DisplayName("Проверка отправки СМС (позитивный сценарий)")
     @Description(value = "Тест проверяет возможность отправки смс (позитивный сценарий)")
     @Test
@@ -30,6 +37,5 @@ public class SendSmsPositiveTest extends BaseTest {
                 .enterPasswordOrSms("123456");
         takeFirstLoan.acceptAllPolicy().clickNextButton();
         sms.checkValidState();
-        clearBrowserCookieAndStorage();
     }
 }

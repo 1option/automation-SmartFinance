@@ -1,4 +1,4 @@
-package pages.authorization;
+package pages.registration;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -101,7 +101,7 @@ public class TakeFirstLoan extends BasePage {
     }
 
     @Step("Ввести название подразделения")
-    public TakeFirstLoan enterPassportIssuerName(String passportIssuerName) {
+    public TakeFirstLoan enterPassportIssuerName() {
         liPassportIssuerNameValueLocator.shouldBe(visible).click();
         return this;
     }

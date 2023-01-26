@@ -1,4 +1,4 @@
-package tests.calculator;
+package tests.pages.authorization;
 
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +13,7 @@ import static constants.Constant.URLS.JIRA_PAGE;
 @Issue(value = "89")
 @TmsLink(value = "89")
 @Epic(value = "Страница авторизации/регистрации JoyMoney")
-@Feature(value = "Калькулятор (слайдер)")
+@Feature(value = "Калькулятор")
 @Owner(value = "Максим Рожков")
 @Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
 @Tag("Smoke")

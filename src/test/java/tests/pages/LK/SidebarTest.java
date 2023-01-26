@@ -1,6 +1,7 @@
-package tests.sidebar;
+package tests.pages.LK;
 
 import io.qameta.allure.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -24,10 +25,17 @@ import static constants.Constant.UserData.PASSWORD;
 @Tag("Smoke")
 public class SidebarTest extends BaseTest {
 
+    @AfterAll
+    @Step("Очистить куки")
+    public void clearCookie() {
+        clearBrowserCookieAndStorage();
+    }
+
     @DisplayName("Навигация по разделам")
     @Description(value = "Тест проверяет возможность навигации по боковому меню в личном кабинете")
     @Test
     public void checkNavigationInSidebar() {
+
         login.enterPhoneNumber(LOGIN_PHONE_NUMBER)
                 .enterPasswordOrSms(PASSWORD)
                 .isSigned();
@@ -40,8 +48,6 @@ public class SidebarTest extends BaseTest {
                 .verifyCurrentPage()
                 .navigateToPage("Мои займы")
                 .verifyCurrentPage();
-        clearBrowserCookieAndStorage();
-
 
         /*
          * Существуют аккаунты без вкладки "Услуги" в боковом меню
