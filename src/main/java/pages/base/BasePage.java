@@ -27,8 +27,8 @@ public class BasePage {
     }
 
     public BasePage showHiddenUlAndSelectFirst(SelenideElement element) {
-        Selenide.executeJavaScript("arguments[0].style='overflow:visible;visibility:visible;'", element.shouldBe(visible));
-        actions().sendKeys(Keys.ENTER).perform();
+        Selenide.executeJavaScript("arguments[0].style='overflow:visible;visibility:visible;arguments[0].click()'", element.shouldBe(visible));
+        actions().sendKeys(Keys.ENTER).build().perform();
         return this;
     }
 }

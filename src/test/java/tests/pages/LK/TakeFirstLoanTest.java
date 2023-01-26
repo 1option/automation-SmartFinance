@@ -1,35 +1,46 @@
 package tests.pages.LK;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 import tests.base.BaseTest;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static com.codeborne.selenide.Selenide.webdriver;
-import static com.codeborne.selenide.WebDriverConditions.url;
+import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.actions;
+import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.JIRA_PAGE;
-import static constants.Constant.URLS.LK_PAGE;
 import static constants.Constant.UserData.*;
 
-@Disabled
 @DisplayName("test_auth_005")
+@Tag("Loan")
 @Tag("Smoke")
 public class TakeFirstLoanTest extends BaseTest {
 
     private static final String randomPhoneNumber;
-    private static final String randomEmail;
+    private static String randomEmail;
+    private static String anotherEmail;
     public static final String accountId;
     private static final BufferedWriter accountsLogFileBuffer;
     public static final FileWriter accountFileWriter;
     private static final Faker userData = new Faker();
+
+    @AfterAll
+    @Step("Очистить куки")
+    public void clearCookie() {
+        clearBrowserCookieAndStorage();
+    }
+
 
     static {
         try {
@@ -40,7 +51,9 @@ public class TakeFirstLoanTest extends BaseTest {
         }
         accountId = userData.numerify("@id:######");
         randomEmail = userData.internet().emailAddress();
+        anotherEmail = userData.internet().emailAddress();
         randomPhoneNumber = userData.numerify("79########0");
+        System.out.println("1 email" + randomEmail + "\n2 email" + anotherEmail);
         saveAccountInfo();
     }
 
@@ -62,8 +75,33 @@ public class TakeFirstLoanTest extends BaseTest {
         takeFirstLoan.acceptAllPolicy()
                 .clickNextButton()
                 .enterUserName("Терминатор")
-                .clickNextButton() // Кнопка 'Далее'
-                .enterSurname("Тэтысяча")
+                .clickNextButton();
+
+        personalInformation();
+
+        if (WebDriverRunner.url().equals("https://my-preprod.joy.money/profile/job")) {
+            Selenide.refresh();
+            actions().sendKeys(Keys.PAGE_UP).perform();
+            $x("(//span[text()='Изменить'])[1]").shouldBe(Condition.visible).click();
+            randomEmail = anotherEmail;
+            takeFirstLoan.enterEmail(randomEmail)
+                    .clickNextButton();
+            takeFirstLoan.enterPassportIdentifier("0000100000").enterPassportIssuerDate("01012020");
+            actions().sendKeys(Keys.PAGE_DOWN).perform();
+            takeFirstLoan.enterAddressRegFlat("1")
+                    .clickOnSecondStageButton();
+            actions().sendKeys(Keys.PAGE_DOWN).perform();
+            takeFirstLoan.acceptAllFinalPolicy()
+                    .clickOnAcceptButton();
+            login.enterPasswordOrSms("1234");
+        }
+
+        takeFirstLoan.addCard();
+    }
+
+    @Step
+    public void personalInformation() {
+        takeFirstLoan.enterSurname("Тэтысяча")
                 .enterPatronymic("Машина")
                 .enterBirthdate("01.01.2000")
                 .enterEmail(randomEmail) // Случайный email
@@ -72,11 +110,11 @@ public class TakeFirstLoanTest extends BaseTest {
                 .enterPassportIssuerDate("01012020")
                 .enterPassportIssuerCode("123456")
                 .enterPassportIssuerName()
-                .enterBirtPlace("гор Москва")
+                .enterBirtPlace("г Москва город Москва")
                 .uploadPassport(PASSPORT_FILE) // Загрузить паспорт
                 .enterSnils("012-345-678 19")
                 .enterAddressRegCity("гор Москва")
-                .enterAddressRegStreet("Арбат")
+                .enterAddressRegStreet("Лени")
                 .enterAddressRegHouse("1")
                 .enterAddressRegFlat("1")
                 .selectRadioButtonFactAddressYes() // Совпадает с местом прописки
@@ -90,11 +128,6 @@ public class TakeFirstLoanTest extends BaseTest {
                 .inputFriendNumber("79999999999")
                 .acceptAllFinalPolicy() // Принять все соглашения
                 .clickOnAcceptButton(); // Кнопка 'Подтвердить'
-        login.enterPasswordOrSms(SMS);
-        webdriver().shouldHave(url(LK_PAGE));
-        Selenide.refresh();
-        takeFirstLoan.addCard();
-        Selenide.refresh();
     }
 
     private static void saveAccountInfo() {

@@ -1,7 +1,6 @@
 package tests.pages.authorization;
 
 import io.qameta.allure.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -11,9 +10,9 @@ import static constants.Constant.URLS.JIRA_PAGE;
 import static constants.Constant.UserData.RECOVERY_PHONE_NUMBER;
 import static constants.Constant.UserData.RECOVERY_SMS;
 
-@Disabled
 @DisplayName("test_recovery_002")
 @Tag("Login")
+@Tag("Recovery")
 @Issue(value = "89")
 @TmsLink(value = "89")
 @Epic(value = "Страница авторизации/регистрации JoyMoney")

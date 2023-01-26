@@ -8,6 +8,7 @@ import pages.base.BasePage;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byName;
 import static com.codeborne.selenide.Selenide.*;
@@ -60,49 +61,58 @@ public class TakeFirstLoan extends BasePage {
 
     @Step("Ввести фамилию")
     public TakeFirstLoan enterSurname(String surname) {
+        inputSurnameLocator.clear();
         inputSurnameLocator.shouldBe(visible).sendKeys(surname);
         return this;
     }
 
     @Step("Ввести отчество")
     public TakeFirstLoan enterPatronymic(String patronymic) {
+        inputPatronymicLocator.clear();
         inputPatronymicLocator.shouldBe(visible).sendKeys(patronymic);
         return this;
     }
 
     @Step("Ввести дату рождения")
     public TakeFirstLoan enterBirthdate(String birthDate) {
+        inputBirthdateLocator.clear();
         inputBirthdateLocator.shouldBe(visible).sendKeys(birthDate);
         return this;
     }
 
     @Step("Ввести email")
     public TakeFirstLoan enterEmail(String email) {
+        inputEmailLocator.sendKeys(Keys.CONTROL + "A");
+        inputEmailLocator.sendKeys(Keys.BACK_SPACE);
         inputEmailLocator.shouldBe(visible).sendKeys(email);
         return this;
     }
 
     @Step("Ввести серию и номер паспорта")
     public TakeFirstLoan enterPassportIdentifier(String passportIdentifier) {
+        inputPassportIdentifierLocator.clear();
         inputPassportIdentifierLocator.shouldBe(visible).sendKeys(passportIdentifier);
         return this;
     }
 
     @Step("Ввести дату выдачи паспорта")
     public TakeFirstLoan enterPassportIssuerDate(String passportIssuerDate) {
+        inputPassportIssuerDateLocator.clear();
         inputPassportIssuerDateLocator.shouldBe(visible).sendKeys(passportIssuerDate);
         return this;
     }
 
     @Step("Ввести код подразделения")
     public TakeFirstLoan enterPassportIssuerCode(String passportIssuerCode) {
+        inputPassportIssuerCodeLocator.clear();
         inputPassportIssuerCodeLocator.shouldBe(visible).sendKeys(passportIssuerCode);
         return this;
     }
 
     @Step("Ввести название подразделения")
     public TakeFirstLoan enterPassportIssuerName() {
-        liPassportIssuerNameValueLocator.shouldBe(visible).click();
+        showHiddenUlAndSelectFirst(liPassportIssuerNameValueLocator);
+        liPassportIssuerNameValueLocator.shouldBe(visible);
         return this;
     }
 
@@ -141,6 +151,7 @@ public class TakeFirstLoan extends BasePage {
 
     @Step("Ввести дом")
     public TakeFirstLoan enterAddressRegHouse(String addressRegHouse) {
+        inputAddressRegHouse.clear();
         inputAddressRegHouse.shouldBe(visible).sendKeys(addressRegHouse);
         showHiddenUlAndSelectFirst(ulAddressLocator);
         return this;
@@ -148,6 +159,7 @@ public class TakeFirstLoan extends BasePage {
 
     @Step("Ввести квартиру")
     public TakeFirstLoan enterAddressRegFlat(String addressRegFlat) {
+        inputAddressRegFlat.clear();
         inputAddressRegFlat.shouldBe(visible).sendKeys(addressRegFlat);
         return this;
     }
@@ -167,12 +179,14 @@ public class TakeFirstLoan extends BasePage {
 
     @Step("Укажите название организации")
     public TakeFirstLoan inputJobName(String jobName) {
+        inputJobNameLocator.clear();
         inputJobNameLocator.shouldBe(visible).sendKeys(jobName);
         return this;
     }
 
     @Step("Укажите должность")
     public TakeFirstLoan inputJobTitle(String jobTitle) {
+        inputJobTitleLocator.clear();
         inputJobTitleLocator.shouldBe(visible).sendKeys(jobTitle);
         return this;
     }
@@ -232,11 +246,14 @@ public class TakeFirstLoan extends BasePage {
     public TakeFirstLoan addCard() {
         buttonAddCard.shouldBe(visible).click();
         showHiddenUlAndSelectFirst(inputPaymentTools.shouldBe(visible));
-        Selenide.switchTo().frame(iframePayment.shouldBe(visible));
+        actions().sendKeys(Keys.chord(Keys.TAB, Keys.ENTER)).build().perform();
+        Selenide.switchTo().frame(iframePayment);
         inputPan.shouldBe(visible).clear();
         inputPan.shouldBe(visible).sendKeys(PAN);
         inputPan.shouldBe(visible).pressEnter();
-        buttonGetMoney.click();
+        iframePayment.shouldBe(disappear);
+        actions().sendKeys(Keys.PAGE_DOWN).perform();
+        buttonGetMoney.shouldBe(visible).click();
         inputAsp.sendKeys(SMS);
         return this;
     }
