@@ -9,10 +9,11 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Login extends BasePage {
 
-    private final SelenideElement divLoansLocator = $x("//div[contains(@class,'Loans_loans')]");
-    private final SelenideElement inputPasswordSmsCodeLocator = $x("//input[contains(@type,'password')]");
+    public final SelenideElement buttonNextLocator = $x("//button[text() = 'Далее']");
+    public final SelenideElement divLoansLocator = $x("//div[contains(@class,'Loans_loans')]");
+    public final SelenideElement inputPasswordSmsCodeLocator = $x("//input[contains(@type,'password')]");
     public final SelenideElement inputPhoneNumberLocator = $x("//input[contains(@name,'hone')]");
-
+    public final SelenideElement checkBoxAcceptAllPolicyLocator = $x("//input[@type='checkbox'][@id='userPolicy']");
 
     @Step("Ввести номер телефона")
     public Login enterPhoneNumber(String phoneNumber) {
@@ -21,14 +22,14 @@ public class Login extends BasePage {
     }
 
     @Step("Ввести пароль")
-    public Login enterPassword(String password) {
+    public Login enterPasswordOrSms(String password) {
         inputPasswordSmsCodeLocator.shouldBe(visible).setValue(password).pressEnter();
         return this;
     }
 
     @Step("Произошел вход в Личный кабинет")
-    public void isSigned() {
+    public Login isSigned() {
         divLoansLocator.shouldBe(visible);
+        return this;
     }
-
 }

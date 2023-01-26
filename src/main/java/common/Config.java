@@ -18,12 +18,12 @@ public class Config {
     /**
      * Clear cookies after each iteration
      */
-    public static final Boolean CLEAR_COOKIES = true;
+    public static Boolean CLEAR_COOKIES = true;
 
     /**
      * To keep the browser open after all tests
      */
-    public static final Boolean HOLD_BROWSER_OPEN = false;
+    public static final Boolean HOLD_BROWSER_OPEN = true;
 
     /**
      * Clear the directory with screenshots before starting tests
@@ -35,6 +35,8 @@ public class Config {
         Configuration.browserSize = "1920x1080";
         Configuration.reportsFolder = "build/reports/tests";
         Configuration.browser = BROWSER_NAME;
+        Configuration.screenshots = true;
+        Configuration.savePageSource = false;
     }
 
 }

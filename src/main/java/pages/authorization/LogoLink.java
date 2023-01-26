@@ -1,34 +1,31 @@
-//package pages.authorization;
-//
-//import io.qameta.allure.Step;
-//import org.junit.jupiter.api.Assertions;
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebDriver;
-//import pages.base.BasePage;
-//
-//public class LogoLink extends BasePage {
-//
-//    public LogoLink(WebDriver driver) {
-//        super(driver);
-//    }
-//
-//    public final By linkLogoLocator = By.xpath("//a[contains(@class, 'logo')]");
-//    public final By navHeaderMenuLocator = By.xpath("//nav[contains(@class, 'header-menu')]");
-//
-//    /**
-//     * Click on link "JoyMoney" (logo)
-//     */
-//    @Step("Нажать на логотип JoyMoney")
-//    public LogoLink clickOnLogo() {
-//        driver.findElement(linkLogoLocator).click();
-//        return this;
-//    }
-//
-//    /**
-//     * Check that current page is landing by locator
-//     */
-//    @Step("Текущая страница - лендинг")
-//    public void checkCurrentPageIsLanding() {
-//        Assertions.assertTrue(waitElementIsPresent(navHeaderMenuLocator).isDisplayed());
-//    }
-//}
+package pages.authorization;
+
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+import pages.base.BasePage;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
+
+public class LogoLink extends BasePage {
+    
+    public final SelenideElement linkLogoLocator = $x("//a[contains(@class, 'logo')]");
+    public final SelenideElement navHeaderMenuLocator = $x("//nav[contains(@class, 'header-menu')]");
+
+    /**
+     * Click on link "JoyMoney" (logo)
+     */
+    @Step("Нажать на логотип JoyMoney")
+    public LogoLink clickOnLogo() {
+        linkLogoLocator.shouldBe(visible).click();
+        return this;
+    }
+
+    /**
+     * Check that current page is landing by locator
+     */
+    @Step("Текущая страница - лендинг")
+    public void checkCurrentPageIsLanding() {
+        navHeaderMenuLocator.shouldBe(visible);
+    }
+}

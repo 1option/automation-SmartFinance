@@ -1,10 +1,9 @@
-package common;
+package tests.base;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import common.CommonActions;
 import io.qameta.allure.Attachment;
-import org.junit.jupiter.api.extension.AfterEachCallback;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.OutputType;
@@ -12,21 +11,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static common.CommonActions.clearBrowserCookieAndStorage;
-import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
-
-public class Listener implements TestWatcher, BeforeAllCallback, AfterEachCallback {
+public class Listener implements TestWatcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonActions.class);
-
-    @Override
-    public void beforeAll(ExtensionContext extensionContext) {
-        extensionContext.getRoot().getStore(GLOBAL).put(true, this);
-    }
-
-    @Override
-    public void afterEach(ExtensionContext extensionContext) {
-        clearBrowserCookieAndStorage();
-    }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
