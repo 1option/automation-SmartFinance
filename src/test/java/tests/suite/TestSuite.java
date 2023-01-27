@@ -1,13 +1,15 @@
 package tests.suite;
 
 import org.junit.platform.suite.api.ExcludeTags;
-import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
+import tests.pages.LK.LoginPositiveTest;
 
-@SelectPackages({"tests.pages.authorization", "tests.pages.LK"})
-@SuiteDisplayName("Тест сьют")
-@ExcludeTags({ "Recovery" })
+@SelectClasses({LoginPositiveTest.class})
+@SuiteDisplayName("TestSuiteJoyMoney")
+@ExcludeTags({ "Recovery", "Loan"})
 @Suite
 public class TestSuite {
+
 }

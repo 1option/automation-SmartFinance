@@ -2,17 +2,21 @@ package pages.registration;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import common.CommonActions;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import pages.base.BasePage;
 
 import java.io.File;
+import java.io.IOException;
 
 import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byName;
 import static com.codeborne.selenide.Selenide.*;
-import static constants.Constant.UserData.PAN;
+import static com.codeborne.selenide.WebDriverConditions.url;
+import static constants.Constant.URLS.LK_PAGE;
+import static constants.Constant.UserData.PAN_0;
 import static constants.Constant.UserData.SMS;
 
 public class TakeFirstLoan extends BasePage {
@@ -52,6 +56,9 @@ public class TakeFirstLoan extends BasePage {
     private final SelenideElement inputPan = $x("//input[@name='pan']");
     private final SelenideElement buttonGetMoney = $x("//button[@id='get_money']");
     private final SelenideElement inputAsp = $x("//input[@name='asp']");
+    private final SelenideElement spanApplicationId = $x("//span[contains(@class, 'Numb')]");
+    private final SelenideElement divCloseNotice = $x("//div[contains(@class,'close')]");
+    private final SelenideElement spanCloseIframe = $x("//span[contains(@class, 'close')]");
 
     @Step("Ввести имя")
     public TakeFirstLoan enterUserName(String name) {
@@ -243,18 +250,32 @@ public class TakeFirstLoan extends BasePage {
         return this;
     }
 
-    public TakeFirstLoan addCard() {
+    public TakeFirstLoan addCard() throws IOException, InterruptedException {
+        webdriver().shouldHave(url(LK_PAGE));
+        approveApplication();
+        Selenide.refresh();
+        divCloseNotice.shouldBe(visible).click();
         buttonAddCard.shouldBe(visible).click();
         showHiddenUlAndSelectFirst(inputPaymentTools.shouldBe(visible));
         actions().sendKeys(Keys.chord(Keys.TAB, Keys.ENTER)).build().perform();
         Selenide.switchTo().frame(iframePayment);
         inputPan.shouldBe(visible).clear();
-        inputPan.shouldBe(visible).sendKeys(PAN);
+        inputPan.shouldBe(visible).sendKeys(PAN_0);
         inputPan.shouldBe(visible).pressEnter();
+        Selenide.switchTo().parentFrame();
+        javaScriptExecutorClickOn(spanCloseIframe);
         iframePayment.shouldBe(disappear);
         actions().sendKeys(Keys.PAGE_DOWN).perform();
         buttonGetMoney.shouldBe(visible).click();
-        inputAsp.sendKeys(SMS);
+        inputAsp.shouldBe(visible).sendKeys(SMS);
+        return this;
+    }
+
+    public TakeFirstLoan approveApplication() throws IOException, InterruptedException {
+        // Отправка http request POST
+        String applicationId = spanApplicationId.shouldBe(visible).getText();
+        applicationId = applicationId.replaceAll("[^0-9]", "");;
+        CommonActions.httpPostApproveAgreement(applicationId);
         return this;
     }
 

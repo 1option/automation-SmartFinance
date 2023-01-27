@@ -15,7 +15,7 @@ public class Listener implements TestWatcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonActions.class);
 
     @Override
-    public void testFailed(ExtensionContext context, Throwable cause) {
+    public void testFailed(ExtensionContext context, Throwable cause ) {
         LOGGER.info("Test {} - FAILED", context.getTestMethod().get().getName());
         String screenshotName = context.getTestMethod().get().getName()
                 + String.valueOf(System.currentTimeMillis()).substring(9, 13);

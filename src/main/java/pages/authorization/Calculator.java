@@ -18,12 +18,19 @@ public class Calculator extends BasePage {
     private WebElement divCashHandler;
     private WebElement divDaysHandler;
 
-
+    /**
+     *
+     */
     public void findHandlerElements() {
         divCashHandler = $x("(//div[contains(@class, 'rc-slider-handle')])[1]");
         divDaysHandler = $x("(//div[contains(@class, 'rc-slider-handle')])[2]");
     }
 
+    /**
+     *
+     * @param xOffset
+     * @return
+     */
     @Step("Сдвинуть хендлеры на {0} по оси X")
     public Calculator moveHandlers(int xOffset) {
         initialCashValue = cashInitialValueLocator.shouldBe(visible).getText();
@@ -33,6 +40,10 @@ public class Calculator extends BasePage {
         return this;
     }
 
+    /**
+     *
+     * @return
+     */
     @Step("Значения хендлеров изменились")
     public Calculator checkValues() {
         String currentCashValue = cashInitialValueLocator.shouldBe(visible).getText();

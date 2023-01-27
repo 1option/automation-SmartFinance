@@ -34,7 +34,7 @@ public class CheckBoxPolicyTest extends BaseTest {
     @Description(value = "Тест на проверку работы чекбоксов и отображения документов")
     @Test
     public void checkBoxAndPolicyVerification() {
-        login.enterPhoneNumber(REGISTRATION_PHONE_NUMBER).enterPasswordOrSms(PASSWORD);
+        login.enterPhoneNumber(REGISTRATION_PHONE_NUMBER).enterPassword(PASSWORD);
         checkboxPolicy.verifyAllCheckBoxes()
                 .verifyDocumentCheckBoxes()
                 .verifyDocuments();

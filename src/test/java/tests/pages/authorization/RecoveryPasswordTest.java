@@ -30,6 +30,6 @@ public class RecoveryPasswordTest extends BaseTest {
         login.enterPhoneNumber(RECOVERY_PHONE_NUMBER);
         recoveryLink.clickOnRecoveryLink().checkCurrentPageIsRecoveryPage();
         login.enterPhoneNumber(RECOVERY_PHONE_NUMBER)
-                .enterPasswordOrSms(RECOVERY_SMS);
+                .enterPassword(RECOVERY_SMS);
     }
 }

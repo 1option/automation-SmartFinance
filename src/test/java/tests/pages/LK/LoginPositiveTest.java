@@ -16,13 +16,8 @@ import static constants.Constant.UserData.PASSWORD;
 @Tag("Smoke")
 @Tag("Login")
 @Tag("Positive")
-@Issue(value = "89")
-@TmsLink(value = "89")
-@Epic(value = "Страница авторизации/регистрации JoyMoney")
-@Feature(value = "Авторизация")
-@Owner(value = "Максим Рожков")
 @Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
-@Severity(value = SeverityLevel.CRITICAL)
+@Owner("Максим Рожков")
 public class LoginPositiveTest extends BaseTest {
 
     @AfterAll
@@ -31,11 +26,16 @@ public class LoginPositiveTest extends BaseTest {
         clearBrowserCookieAndStorage();
     }
 
-    @DisplayName("Вход в Личный кабинет")
-    @Description(value = "Тест проверяет возможность входа в личный кабинет")
+    @Description("Тест проверяет возможность входа в личный кабинет")
+    @Epic("Личный кабинет")
+    @Feature("Авторизация")
+    @DisplayName("Вход в ЛК")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Issue("89")
+    @TmsLink("89")
     @Test
     public void signInLK() {
-        login.enterPhoneNumber(LOGIN_PHONE_NUMBER).enterPasswordOrSms(PASSWORD).isSigned();
+        login.enterPhoneNumber(LOGIN_PHONE_NUMBER).enterPassword(PASSWORD).isSigned();
     }
-
 }
+

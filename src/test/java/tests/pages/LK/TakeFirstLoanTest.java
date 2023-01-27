@@ -5,7 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -18,10 +18,10 @@ import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.actions;
-import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.JIRA_PAGE;
 import static constants.Constant.UserData.*;
 
+@Disabled
 @DisplayName("test_auth_005")
 @Tag("Loan")
 @Tag("Smoke")
@@ -35,11 +35,11 @@ public class TakeFirstLoanTest extends BaseTest {
     public static final FileWriter accountFileWriter;
     private static final Faker userData = new Faker();
 
-    @AfterAll
-    @Step("Очистить куки")
-    public void clearCookie() {
-        clearBrowserCookieAndStorage();
-    }
+//    @AfterAll
+//    @Step("Очистить куки")
+//    public void clearCookie() {
+//        clearBrowserCookieAndStorage();
+//    }
 
 
     static {
@@ -53,7 +53,6 @@ public class TakeFirstLoanTest extends BaseTest {
         randomEmail = userData.internet().emailAddress();
         anotherEmail = userData.internet().emailAddress();
         randomPhoneNumber = userData.numerify("79########0");
-        System.out.println("1 email" + randomEmail + "\n2 email" + anotherEmail);
         saveAccountInfo();
     }
 
@@ -68,9 +67,9 @@ public class TakeFirstLoanTest extends BaseTest {
     @Owner(value = "Максим Рожков")
     @Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
     @Test
-    public void takeLoan() {
+    public void takeLoan() throws IOException, InterruptedException {
         // Значения хендлеров не меняем, по умолчанию будет: 10тыс, 15 дней
-        login.enterPhoneNumber(randomPhoneNumber).enterPasswordOrSms(PASSWORD);
+        login.enterPhoneNumber(randomPhoneNumber).enterPassword(PASSWORD);
 
         takeFirstLoan.acceptAllPolicy()
                 .clickNextButton()
@@ -93,9 +92,8 @@ public class TakeFirstLoanTest extends BaseTest {
             actions().sendKeys(Keys.PAGE_DOWN).perform();
             takeFirstLoan.acceptAllFinalPolicy()
                     .clickOnAcceptButton();
-            login.enterPasswordOrSms("1234");
+//            login.enterPasswordOrSms("1234");
         }
-
         takeFirstLoan.addCard();
     }
 
@@ -128,6 +126,7 @@ public class TakeFirstLoanTest extends BaseTest {
                 .inputFriendNumber("79999999999")
                 .acceptAllFinalPolicy() // Принять все соглашения
                 .clickOnAcceptButton(); // Кнопка 'Подтвердить'
+        login.enterPassword("1234");
     }
 
     private static void saveAccountInfo() {

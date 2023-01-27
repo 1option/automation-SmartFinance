@@ -82,6 +82,26 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
             </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <!--                        Протаскиваем environments.properties в отчет-->
+                        <phase>test</phase>
+                        <configuration>
+                            <target>
+                                <copy file="${project.basedir}/src/test/resources/environment.properties"
+                                      overwrite="true"
+                                      todir="${project.basedir}/target/allure-results"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -156,12 +176,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
-            <scope>test</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.github.automatedowl</groupId>-->
-        <!--            <artifactId>allure-environment-writer</artifactId>-->
-        <!--            <version>1.0.0</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.1.0</version>
+        </dependency>
     </dependencies>
 </project>

@@ -34,7 +34,7 @@ public class SendSmsNegativeTest extends BaseTest {
     @Test
     public void checkSmsSendNegative() {
         login.enterPhoneNumber(REGISTRATION_PHONE_NUMBER)
-                .enterPasswordOrSms("222222");
+                .enterPassword("222222");
         takeFirstLoan.acceptAllPolicy().clickNextButton();
         sms.checkInvalidState();
     }

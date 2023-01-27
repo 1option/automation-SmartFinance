@@ -25,7 +25,8 @@ public class Constant {
         public static final File ACCOUNTS_LOG_FILE = new File("src/test/files/accounts.txt");
         public static final File ACCOUNTS_LOG_DIR = new File("src/test/files/");
         public static final File PASSPORT_FILE = new File("src/test/files/passport.jpg");
-        public static final String PAN = "4000000000000000";
+        public static final String PAN_0 = "4000000000000000";
+        public static final String PAN_4 = "4000000000000004";
 
     }
 

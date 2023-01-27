@@ -17,17 +17,18 @@ public class Config {
 
     /**
      * Clear the directory with screenshots before starting tests
-     */
-    public static final Boolean CLEAR_REPORTS_DIR = true;
+     * */
+    public static final Boolean CLEAR_SCREENSHOTS = true;
+
+    public static final Boolean CLEAR_DOWNLOADS = true;
 
     static {
-        Configuration.holdBrowserOpen = true;
+        Configuration.holdBrowserOpen = false;
         Configuration.browserSize = "1920x1080";
-        Configuration.reportsFolder = "build/reports/tests";
         Configuration.browser = BROWSER_NAME;
-        Configuration.screenshots = true;
+        Configuration.screenshots = false; // Attach to Allure via Listener class
         Configuration.savePageSource = false;
-        Configuration.timeout = 20000;
+        Configuration.timeout = 10000; // Default: 4000ms
     }
 
 }
