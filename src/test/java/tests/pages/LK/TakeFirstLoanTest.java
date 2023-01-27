@@ -5,7 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,6 @@ import static com.codeborne.selenide.Selenide.actions;
 import static constants.Constant.URLS.JIRA_PAGE;
 import static constants.Constant.UserData.*;
 
-@Disabled
 @DisplayName("test_auth_005")
 @Tag("Loan")
 @Tag("Smoke")
@@ -29,7 +27,7 @@ public class TakeFirstLoanTest extends BaseTest {
 
     private static final String randomPhoneNumber;
     private static String randomEmail;
-    private static String anotherEmail;
+    private static final String anotherEmail;
     public static final String accountId;
     private static final BufferedWriter accountsLogFileBuffer;
     public static final FileWriter accountFileWriter;

@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.LK.SideBar;
 import pages.authorization.*;
 import pages.base.BasePage;
@@ -18,6 +20,7 @@ import static constants.Constant.URLS.AUTHORIZATION_PAGE;
 
 @ExtendWith(Listener.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Execution(ExecutionMode.CONCURRENT)
 public class BaseTest {
 
     protected BasePage basePage = new BasePage();
