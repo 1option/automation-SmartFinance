@@ -28,7 +28,7 @@ public class Config {
         Configuration.browser = BROWSER_NAME;
         Configuration.screenshots = false; // Attach to Allure via Listener class
         Configuration.savePageSource = false;
-        Configuration.timeout = 10000; // Default: 4000ms
+        //Configuration.timeout = 10000; // Default: 4000ms
     }
 
 }

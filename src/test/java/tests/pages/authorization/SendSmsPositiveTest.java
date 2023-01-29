@@ -9,7 +9,7 @@ import tests.base.BaseTest;
 
 import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.JIRA_PAGE;
-import static constants.Constant.UserData.REGISTRATION_PHONE_NUMBER;
+import static constants.Constant.UserData.MOCK_PHONE_NUMBER;
 
 @DisplayName("test_auth_003")
 @Tag("Login")
@@ -25,7 +25,7 @@ public class SendSmsPositiveTest extends BaseTest {
 
     @AfterAll
     @Step("Очистить куки")
-    public void clearCookie() {
+    void clearCookie() {
         clearBrowserCookieAndStorage();
     }
 
@@ -33,7 +33,7 @@ public class SendSmsPositiveTest extends BaseTest {
     @Description(value = "Тест проверяет возможность отправки смс (позитивный сценарий)")
     @Test
     public void checkSmsSendPositive() {
-        login.enterPhoneNumber(REGISTRATION_PHONE_NUMBER)
+        login.enterPhoneNumber(MOCK_PHONE_NUMBER)
                 .enterPassword("123456");
         takeFirstLoan.acceptAllPolicy().clickNextButton();
         sms.checkValidState();

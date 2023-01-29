@@ -118,7 +118,7 @@ public class TakeFirstLoan extends BasePage {
 
     @Step("Ввести название подразделения")
     public TakeFirstLoan enterPassportIssuerName() {
-        showHiddenUlAndSelectFirst(liPassportIssuerNameValueLocator);
+        showHiddenUlAndSelectFirstLi(liPassportIssuerNameValueLocator);
         liPassportIssuerNameValueLocator.shouldBe(visible);
         return this;
     }
@@ -145,14 +145,14 @@ public class TakeFirstLoan extends BasePage {
     @Step("Ввести населенный пункт")
     public TakeFirstLoan enterAddressRegCity(String addressRegCity) {
         inputAddressRegCity.shouldBe(visible).sendKeys(addressRegCity);
-        showHiddenUlAndSelectFirst(ulAddressLocator);
+        showHiddenUlAndSelectFirstLi(ulAddressLocator);
         return this;
     }
 
     @Step("Ввести улицу")
     public TakeFirstLoan enterAddressRegStreet(String addressRegStreet) {
         inputAddressRegStreet.shouldBe(visible).sendKeys(addressRegStreet);
-        showHiddenUlAndSelectFirst(ulAddressLocator);
+        showHiddenUlAndSelectFirstLi(ulAddressLocator);
         return this;
     }
 
@@ -160,7 +160,7 @@ public class TakeFirstLoan extends BasePage {
     public TakeFirstLoan enterAddressRegHouse(String addressRegHouse) {
         inputAddressRegHouse.clear();
         inputAddressRegHouse.shouldBe(visible).sendKeys(addressRegHouse);
-        showHiddenUlAndSelectFirst(ulAddressLocator);
+        showHiddenUlAndSelectFirstLi(ulAddressLocator);
         return this;
     }
 
@@ -180,7 +180,7 @@ public class TakeFirstLoan extends BasePage {
     @Step("Выберите тип занятости")
     public TakeFirstLoan selectTypeJob() {
         inputJobTypeLocator.shouldBe(visible).click();
-        showHiddenUlAndSelectFirst(inputJobTypeLocator);
+        showHiddenUlAndSelectFirstLi(inputJobTypeLocator);
         return this;
     }
 
@@ -224,20 +224,19 @@ public class TakeFirstLoan extends BasePage {
 
     @Step("Принять соглашения(в конце)")
     public TakeFirstLoan acceptAllFinalPolicy() {
-        javaScriptExecutorClickOn(checkBoxAcceptAllFinalPolicy);
+        javaScriptClickOn(checkBoxAcceptAllFinalPolicy);
         return this;
     }
 
     @Step("Принять соглашения (в начале)")
     public TakeFirstLoan acceptAllPolicy() {
-        javaScriptExecutorClickOn(checkBoxAcceptAllPolicyLocator);
+        javaScriptClickOn(checkBoxAcceptAllPolicyLocator);
         return this;
     }
 
     @Step("Нажать Подтвердить")
-    public TakeFirstLoan clickOnAcceptButton() {
+    public void clickOnAcceptButton() {
         buttonAccept.shouldBe(visible).click();
-        return this;
     }
 
     public TakeFirstLoan clickOnSecondStageButton() {
@@ -250,33 +249,31 @@ public class TakeFirstLoan extends BasePage {
         return this;
     }
 
-    public TakeFirstLoan addCard() throws IOException, InterruptedException {
+    public void addCard() throws IOException, InterruptedException {
         webdriver().shouldHave(url(LK_PAGE));
         approveApplication();
         Selenide.refresh();
         divCloseNotice.shouldBe(visible).click();
         buttonAddCard.shouldBe(visible).click();
-        showHiddenUlAndSelectFirst(inputPaymentTools.shouldBe(visible));
+        showHiddenUlAndSelectFirstLi(inputPaymentTools.shouldBe(visible));
         actions().sendKeys(Keys.chord(Keys.TAB, Keys.ENTER)).build().perform();
         Selenide.switchTo().frame(iframePayment);
         inputPan.shouldBe(visible).clear();
         inputPan.shouldBe(visible).sendKeys(PAN_0);
         inputPan.shouldBe(visible).pressEnter();
         Selenide.switchTo().parentFrame();
-        javaScriptExecutorClickOn(spanCloseIframe);
+        javaScriptClickOn(spanCloseIframe);
         iframePayment.shouldBe(disappear);
         actions().sendKeys(Keys.PAGE_DOWN).perform();
         buttonGetMoney.shouldBe(visible).click();
         inputAsp.shouldBe(visible).sendKeys(SMS);
-        return this;
     }
 
-    public TakeFirstLoan approveApplication() throws IOException, InterruptedException {
+    public void approveApplication() throws IOException, InterruptedException {
         // Отправка http request POST
         String applicationId = spanApplicationId.shouldBe(visible).getText();
-        applicationId = applicationId.replaceAll("[^0-9]", "");;
+        applicationId = applicationId.replaceAll("[^0-9]", "");
         CommonActions.httpPostApproveAgreement(applicationId);
-        return this;
     }
 
 }

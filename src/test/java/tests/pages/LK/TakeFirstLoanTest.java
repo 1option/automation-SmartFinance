@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.actions;
+import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.JIRA_PAGE;
 import static constants.Constant.UserData.*;
 
@@ -28,18 +30,18 @@ public class TakeFirstLoanTest extends BaseTest {
     private static final String randomPhoneNumber;
     private static String randomEmail;
     private static final String anotherEmail;
-    public static final String accountId;
+    private static final String accountId;
     private static final BufferedWriter accountsLogFileBuffer;
-    public static final FileWriter accountFileWriter;
+    private static final FileWriter accountFileWriter;
     private static final Faker userData = new Faker();
 
-//    @AfterAll
-//    @Step("Очистить куки")
-//    public void clearCookie() {
-//        clearBrowserCookieAndStorage();
-//    }
+    @AfterAll
+    @Step("Очистить куки")
+    public static void clearCookie() {
+        clearBrowserCookieAndStorage();
+    }
 
-
+    // не надо или
     static {
         try {
             accountFileWriter = new FileWriter(ACCOUNTS_LOG_FILE, true);
@@ -90,13 +92,13 @@ public class TakeFirstLoanTest extends BaseTest {
             actions().sendKeys(Keys.PAGE_DOWN).perform();
             takeFirstLoan.acceptAllFinalPolicy()
                     .clickOnAcceptButton();
-//            login.enterPasswordOrSms("1234");
+            //            login.enterPasswordOrSms("1234");
         }
         takeFirstLoan.addCard();
     }
 
     @Step
-    public void personalInformation() {
+    private void personalInformation() {
         takeFirstLoan.enterSurname("Тэтысяча")
                 .enterPatronymic("Машина")
                 .enterBirthdate("01.01.2000")
@@ -130,8 +132,8 @@ public class TakeFirstLoanTest extends BaseTest {
     private static void saveAccountInfo() {
         if (ACCOUNTS_LOG_DIR.isDirectory()) {
             try {
-                accountsLogFileBuffer.write(String.format("[Test Account %s]\nPhone number:\n\t%s\n",
-                        accountId, randomPhoneNumber));
+                String logData = String.format("[Test Account %s]\nPhone number:\n\t%s\n", accountId, randomPhoneNumber);
+                accountsLogFileBuffer.write(logData);
                 accountsLogFileBuffer.close();
                 accountFileWriter.close();
             } catch (IOException e) {

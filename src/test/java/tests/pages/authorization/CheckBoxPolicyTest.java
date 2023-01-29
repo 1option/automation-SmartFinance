@@ -9,8 +9,8 @@ import tests.base.BaseTest;
 
 import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.UserData.MOCK_PHONE_NUMBER;
 import static constants.Constant.UserData.PASSWORD;
-import static constants.Constant.UserData.REGISTRATION_PHONE_NUMBER;
 
 @DisplayName("test_auth_004")
 @Tag("Login")
@@ -23,10 +23,9 @@ import static constants.Constant.UserData.REGISTRATION_PHONE_NUMBER;
 @Severity(value = SeverityLevel.CRITICAL)
 @Tag("Smoke")
 public class CheckBoxPolicyTest extends BaseTest {
-
     @AfterAll
     @Step("Очистить куки")
-    public void clearCookie() {
+    void clearCookie() {
         clearBrowserCookieAndStorage();
     }
 
@@ -34,7 +33,7 @@ public class CheckBoxPolicyTest extends BaseTest {
     @Description(value = "Тест на проверку работы чекбоксов и отображения документов")
     @Test
     public void checkBoxAndPolicyVerification() {
-        login.enterPhoneNumber(REGISTRATION_PHONE_NUMBER).enterPassword(PASSWORD);
+        login.enterPhoneNumber(MOCK_PHONE_NUMBER).enterPassword(PASSWORD);
         checkboxPolicy.verifyAllCheckBoxes()
                 .verifyDocumentCheckBoxes()
                 .verifyDocuments();

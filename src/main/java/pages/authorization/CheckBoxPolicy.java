@@ -9,6 +9,7 @@ import pages.base.BasePage;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static constants.Locators.buttonNextLocator;
 import static io.qameta.allure.Allure.step;
 
 public class CheckBoxPolicy extends BasePage {
@@ -17,20 +18,18 @@ public class CheckBoxPolicy extends BasePage {
     private final SelenideElement linkPolicyDocumentLocator = $x("//a[contains(@class, 'list__link')]");
     private final SelenideElement divDocumentContentLocator = $x("//div[contains(@class, 'DocumentModal_body')]");
     private final SelenideElement spanCloseDocumentLocator = $x("//span[contains(@class, 'DocumentModal_btn')]");
-    private final SelenideElement h1PolicyPageLocator = $x("//h1['Политика обработки персональных данных']");
+    private final SelenideElement h1PolicyPageLocator = $x("//h1[text()='Политика обработки персональных данных']");
     private final ElementsCollection labelDocumentCheckBoxesLocator = $$x("//*[contains(@class, 'list__link')]/preceding-sibling::label");
-    private final SelenideElement buttonNextLocator = $x("//button[text() = 'Далее']");
-    private final SelenideElement checkBoxAcceptAllPolicyLocator = $x("//input[@type='checkbox'][@id='userPolicy']");
+    private final SelenideElement checkBoxAcceptAllPolicyLocator = $x("//input[@type='checkbox'][@id='userPolicy']"); // m
     private final ElementsCollection allCheckBoxesLocator = $$x("//div[contains(@class, 'wrapper')]//input");
 
     @Step("Проверка документов")
-    public CheckBoxPolicy verifyDocuments() {
-        ElementsCollection documents = spanDocumentLocator;
+    public void verifyDocuments() {
         SelenideElement linkPolicyDocument = linkPolicyDocumentLocator.shouldBe(visible);
 
-        for (SelenideElement document : documents) {
+        for (SelenideElement document : spanDocumentLocator) {
             // не понимаю почему document.click() не работает, скорее всего кликать нужно другой элемент
-            javaScriptExecutorClickOn(document);
+            javaScriptClickOn(document);
 
             step((String.format("Открыт документ '%s'", document.getText())), () -> {
                         divDocumentContentLocator.shouldBe(visible);
@@ -40,14 +39,7 @@ public class CheckBoxPolicy extends BasePage {
         }
 
         step(("Открылась страница 'Политика обработки персональных данных'"), () -> {
-                    javaScriptExecutorClickOn(linkPolicyDocument);
-
-                    // Фокус на новой вкладке
-//                    ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-//                    driver.switchTo().window(tabs.get(1));
-//                    Assertions.assertTrue(waitElementIsPresent(h1PolicyPageLocator).isDisplayed());
-//                    driver.close();
-//                    driver.switchTo().window(tabs.get(0));
+                    javaScriptClickOn(linkPolicyDocument);
                     switchTo().window(1);
                     h1PolicyPageLocator.shouldBe(visible);
                     closeWindow();
@@ -55,7 +47,6 @@ public class CheckBoxPolicy extends BasePage {
                 }
         );
 
-        return this;
     }
 
     @Step("Кликнуть по всем чекбоксам кроме первого")
@@ -97,16 +88,14 @@ public class CheckBoxPolicy extends BasePage {
     }
 
     private void selectDocumentCheckBoxes() {
-        ElementsCollection documentsCheckBoxes = labelDocumentCheckBoxesLocator;
 
-        for (SelenideElement checkBox : documentsCheckBoxes) {
-            javaScriptExecutorClickOn(checkBox);
+        for (SelenideElement checkBox : labelDocumentCheckBoxesLocator) {
+            javaScriptClickOn(checkBox);
         }
     }
 
-    public CheckBoxPolicy selectOrDeselectAllCheckboxes() {
-        javaScriptExecutorClickOn(checkBoxAcceptAllPolicyLocator);
-        return this;
+    private void selectOrDeselectAllCheckboxes() {
+        javaScriptClickOn(checkBoxAcceptAllPolicyLocator);
     }
 
 }

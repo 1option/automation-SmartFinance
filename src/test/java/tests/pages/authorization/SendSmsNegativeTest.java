@@ -9,31 +9,32 @@ import tests.base.BaseTest;
 
 import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.JIRA_PAGE;
-import static constants.Constant.UserData.REGISTRATION_PHONE_NUMBER;
+import static constants.Constant.UserData.MOCK_PHONE_NUMBER;
 
 @DisplayName("test_auth_002")
 @Tag("Login")
+@Tag("SMS")
+@Tag("Smoke")
 @Issue(value = "89")
 @TmsLink(value = "89")
 @Epic(value = "Страница авторизации/регистрации JoyMoney")
 @Story(value = "Отправка СМС")
 @Severity(value = SeverityLevel.CRITICAL)
 @Owner(value = "Максим Рожков")
-@Tag("Smoke")
+@Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
 public class SendSmsNegativeTest extends BaseTest {
 
     @AfterAll
     @Step("Очистить куки")
-    public void clearCookie() {
+    void clearCookie() {
         clearBrowserCookieAndStorage();
     }
 
     @Description(value = "Тест проверяет возможность отправки смс (негативный сценарий)")
     @DisplayName("Проверка отправки СМС (негативный сценарий)")
-    @Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
     @Test
     public void checkSmsSendNegative() {
-        login.enterPhoneNumber(REGISTRATION_PHONE_NUMBER)
+        login.enterPhoneNumber(MOCK_PHONE_NUMBER)
                 .enterPassword("222222");
         takeFirstLoan.acceptAllPolicy().clickNextButton();
         sms.checkInvalidState();

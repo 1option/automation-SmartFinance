@@ -1,33 +1,38 @@
 package tests.base;
 
+import common.Listener;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import pages.LK.SideBar;
-import pages.authorization.*;
-import pages.base.BasePage;
+import pages.LK.Login;
+import pages.LK.Menu;
+import pages.authorization.Calculator;
+import pages.authorization.CheckBoxPolicy;
+import pages.authorization.LogoLink;
+import pages.authorization.Sms;
 import pages.registration.TakeFirstLoan;
 
 import java.io.File;
 import java.util.Objects;
 
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.webdriver;
+import static com.codeborne.selenide.WebDriverConditions.url;
 import static common.Config.CLEAR_DOWNLOADS;
 import static common.Config.CLEAR_SCREENSHOTS;
 import static constants.Constant.URLS.AUTHORIZATION_PAGE;
 
-@ExtendWith(Listener.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Execution(ExecutionMode.CONCURRENT)
+@ExtendWith(Listener.class)
 public class BaseTest {
 
-    protected BasePage basePage = new BasePage();
-    protected static Login login = new Login();
-    protected SideBar sidebar = new SideBar();
+    protected Login login = new Login();
+    protected Menu menu = new Menu();
     protected Sms sms = new Sms();
-    protected RecoveryLink recoveryLink = new RecoveryLink();
     protected LogoLink logoLink = new LogoLink();
     protected CheckBoxPolicy checkboxPolicy = new CheckBoxPolicy();
     protected Calculator calculator = new Calculator();
@@ -49,7 +54,8 @@ public class BaseTest {
 
     @BeforeAll
     @Step("Открыть страницу авторизации")
-    public void navigateToAuthPage() {
-        basePage.goToUrl(AUTHORIZATION_PAGE);
+    void navigateToAuthPage() {
+        open(AUTHORIZATION_PAGE);
+        webdriver().shouldHave(url(AUTHORIZATION_PAGE));
     }
 }

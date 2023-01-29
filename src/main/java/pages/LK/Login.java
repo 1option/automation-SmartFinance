@@ -1,4 +1,4 @@
-package pages.authorization;
+package pages.LK;
 
 import io.qameta.allure.Step;
 import pages.base.BasePage;
@@ -25,8 +25,7 @@ public class Login extends BasePage {
     }
 
     @Step("Произошел вход в Личный кабинет")
-    public Login isSigned() {
+    public void isSigned() {
         webdriver().shouldHave(url(LK_PAGE));
-        return this;
     }
 }

@@ -1,8 +1,7 @@
-package tests.base;
+package common;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import common.CommonActions;
 import io.qameta.allure.Attachment;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
@@ -25,7 +24,7 @@ public class Listener implements TestWatcher {
     }
 
     @Attachment(value = "Screenshot", type = "image/png")
-    public byte[] attachScreenShotToAllure() {
+    private byte[] attachScreenShotToAllure() {
         if (WebDriverRunner.hasWebDriverStarted())
             return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
         else return null;

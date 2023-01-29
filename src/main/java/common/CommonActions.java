@@ -27,9 +27,8 @@ public class CommonActions {
 
     /**
      * Send POST http request to approve application
-     * @param applicationId
-     * @throws IOException
-     * @throws InterruptedException
+     * @param applicationId Application id for user
+     *
      */
     public static void httpPostApproveAgreement(String applicationId) throws IOException, InterruptedException {
 

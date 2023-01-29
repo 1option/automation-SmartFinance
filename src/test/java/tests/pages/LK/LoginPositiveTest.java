@@ -22,7 +22,7 @@ public class LoginPositiveTest extends BaseTest {
 
     @AfterAll
     @Step("Очистить куки")
-    public void clearCookie() {
+    void clearCookie() {
         clearBrowserCookieAndStorage();
     }
 

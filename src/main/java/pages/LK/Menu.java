@@ -7,18 +7,19 @@ import pages.base.BasePage;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class SideBar extends BasePage {
+public class Menu extends BasePage {
 
+    // Заменить локатор на уникальную страницу
     private final SelenideElement bodyOfMenuItemLocator = $x("(//div[contains(@class, 'body')])[2]");
 
     @Step("Нажать на вкладку {0}")
-    public SideBar navigateToPage(String menuItemName) {
+    public Menu navigateToPage(String menuItemName) {
         $x(String.format("//span[text()='%s']", menuItemName)).shouldBe(visible).click();
         return this;
     }
 
     @Step("Вкладка успешно открыта")
-    public SideBar verifyCurrentPage() {
+    public Menu verifyCurrentPage() {
         bodyOfMenuItemLocator.shouldBe(visible);
         return this;
     }
