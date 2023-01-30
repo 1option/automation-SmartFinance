@@ -18,10 +18,10 @@ import static com.codeborne.selenide.WebDriverConditions.url;
 import static constants.Constant.URLS.LK_PAGE;
 import static constants.Constant.UserData.PAN_0;
 import static constants.Constant.UserData.SMS;
+import static constants.Locators.*;
 
 public class TakeFirstLoan extends BasePage {
 
-    private final SelenideElement inputNameLocator = $(byName("userName"));
     private final SelenideElement inputSurnameLocator = $(byName("surname"));
     private final SelenideElement inputPatronymicLocator = $(byName("patronymic"));
     private final SelenideElement inputBirthdateLocator = $(byName("birthdate"));
@@ -48,7 +48,6 @@ public class TakeFirstLoan extends BasePage {
     private final SelenideElement radioBankruptcyProcessedLocator = $x("(//span[contains(@class, 'radio')])[6]");
     private final SelenideElement inputFriendPhone = $(byName("friendPhone"));
     private final SelenideElement checkBoxAcceptAllFinalPolicy = $x("//input[@name='jobPolicy']");
-    private final SelenideElement checkBoxAcceptAllPolicyLocator = $x("//input[@type='checkbox'][@id='userPolicy']");
     private final SelenideElement buttonAccept = $x("//button[text() = 'Подтвердить']");
     private final SelenideElement buttonAddCard = $x("//button[@id='add_card']");
     private final SelenideElement inputPaymentTools = $x("//input[@name='paymentTools']");
@@ -222,15 +221,15 @@ public class TakeFirstLoan extends BasePage {
         return this;
     }
 
-    @Step("Принять соглашения(в конце)")
-    public TakeFirstLoan acceptAllFinalPolicy() {
-        javaScriptClickOn(checkBoxAcceptAllFinalPolicy);
-        return this;
-    }
-
     @Step("Принять соглашения (в начале)")
     public TakeFirstLoan acceptAllPolicy() {
         javaScriptClickOn(checkBoxAcceptAllPolicyLocator);
+        return this;
+    }
+
+    @Step("Принять соглашения(в конце)")
+    public TakeFirstLoan acceptAllFinalPolicy() {
+        javaScriptClickOn(checkBoxAcceptAllFinalPolicy);
         return this;
     }
 
@@ -245,7 +244,7 @@ public class TakeFirstLoan extends BasePage {
     }
 
     public TakeFirstLoan clickNextButton() {
-        $x("//button[text()='Далее']").shouldBe(visible).click();
+        buttonNextLocator.shouldBe(visible).click();
         return this;
     }
 

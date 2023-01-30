@@ -18,7 +18,7 @@ import static constants.Constant.UserData.PASSWORD;
 @Tag("Positive")
 @Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
 @Owner("Максим Рожков")
-public class LoginPositiveTest extends BaseTest {
+public class LoginTest extends BaseTest {
 
     @AfterAll
     @Step("Очистить куки")

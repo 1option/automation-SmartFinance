@@ -14,5 +14,7 @@ public class Locators {
     public static final SelenideElement inputSmsCodeLocator = $x("//input[contains(@type,'password')]");
     public static final SelenideElement inputPhoneNumberLocator = $x("//input[contains(@name,'hone')]");
     public static final SelenideElement inputNameLocator = $(byName("userName"));
+    public static final SelenideElement checkBoxAcceptAllPolicyLocator = $x("//input[@type='checkbox'][@id='userPolicy']"); // m
+
 
 }

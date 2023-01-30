@@ -7,8 +7,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
 import static constants.Constant.URLS.LK_PAGE;
-import static constants.Locators.inputPasswordLocator;
-import static constants.Locators.inputPhoneNumberLocator;
+import static constants.Locators.*;
 
 public class Login extends BasePage {
 
@@ -22,6 +21,11 @@ public class Login extends BasePage {
     public Login enterPassword(String password) {
         inputPasswordLocator.setValue(password).pressEnter();
         return this;
+    }
+
+    @Step("Ввести смс-код")
+    public void enterSms(String code) {
+        inputSmsCodeLocator.setValue(code).pressEnter();
     }
 
     @Step("Произошел вход в Личный кабинет")

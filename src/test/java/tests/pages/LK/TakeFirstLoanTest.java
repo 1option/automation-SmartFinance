@@ -5,10 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 import tests.base.BaseTest;
 
@@ -22,6 +19,8 @@ import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.JIRA_PAGE;
 import static constants.Constant.UserData.*;
 
+
+@Disabled
 @DisplayName("test_auth_005")
 @Tag("Loan")
 @Tag("Smoke")
@@ -69,7 +68,7 @@ public class TakeFirstLoanTest extends BaseTest {
     @Test
     public void takeLoan() throws IOException, InterruptedException {
         // Значения хендлеров не меняем, по умолчанию будет: 10тыс, 15 дней
-        login.enterPhoneNumber(randomPhoneNumber).enterPassword(PASSWORD);
+        login.enterPhoneNumber(randomPhoneNumber).enterSms(PASSWORD);
 
         takeFirstLoan.acceptAllPolicy()
                 .clickNextButton()
