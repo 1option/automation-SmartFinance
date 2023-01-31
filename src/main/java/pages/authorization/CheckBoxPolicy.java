@@ -28,24 +28,17 @@ public class CheckBoxPolicy extends BasePage {
         SelenideElement linkPolicyDocument = linkPolicyDocumentLocator.shouldBe(visible);
 
         for (SelenideElement document : spanDocumentLocator) {
-            // не понимаю почему click() не работает, скорее всего кликать нужно другой элемент
             javaScriptClickOn(document);
 
             step((String.format("Открыт документ '%s'", document.getText())), () -> {
-                        divDocumentContentLocator.shouldBe(visible);
-                        spanCloseDocumentLocator.shouldBe(visible);
-                    }
-            );
+                divDocumentContentLocator.shouldBe(visible); spanCloseDocumentLocator.shouldBe(visible);
+            });
         }
 
         step(("Открылась страница 'Политика обработки персональных данных'"), () -> {
-                    javaScriptClickOn(linkPolicyDocument);
-                    switchTo().window(1);
-                    h1PolicyPageLocator.shouldBe(visible);
-                    closeWindow();
-                    switchTo().window(0);
-                }
-        );
+            javaScriptClickOn(linkPolicyDocument); switchTo().window(1); h1PolicyPageLocator.shouldBe(visible);
+            closeWindow(); switchTo().window(0);
+        });
 
     }
 
@@ -53,15 +46,11 @@ public class CheckBoxPolicy extends BasePage {
     public CheckBoxPolicy verifyDocumentCheckBoxes() {
         selectDocumentCheckBoxes();
 
-        step(("Все чекбоксы отмечены"), () ->
-                buttonNextLocator.shouldBe(visible)
-        );
+        step(("Все чекбоксы отмечены"), () -> buttonNextLocator.shouldBe(visible));
 
-        step(("Кнопка 'Далее' активна"), () ->
-                buttonNextLocator.shouldBe(enabled)
-        );
+        step(("Кнопка 'Далее' активна"), () -> buttonNextLocator.shouldBe(enabled));
 
-        selectOrDeselectAllCheckboxes();
+        javaScriptClickOn(checkBoxAcceptAllPolicyLocator);
 
         return this;
     }
@@ -70,19 +59,19 @@ public class CheckBoxPolicy extends BasePage {
     public CheckBoxPolicy verifyAllCheckBoxes() {
         ElementsCollection allCheckBoxes = allCheckBoxesLocator;
 
-        selectOrDeselectAllCheckboxes();
+        javaScriptClickOn(checkBoxAcceptAllPolicyLocator);
 
         step(("Все чекбоксы отмечены"), () -> {
             for (SelenideElement checkBox : allCheckBoxes)
-                if (!checkBox.isSelected()) Assertions.fail("Не все чекбоксы отмечены!");
-                else Assertions.assertTrue(true);
+                if (!checkBox.isSelected())
+                    Assertions.fail("Не все чекбоксы отмечены!");
+                else
+                    Assertions.assertTrue(true);
         });
 
-        step(("Кнопка 'Далее' активна"), () ->
-                buttonNextLocator.shouldBe(enabled)
-        );
+        step(("Кнопка 'Далее' активна"), () -> buttonNextLocator.shouldBe(enabled));
 
-        selectOrDeselectAllCheckboxes();
+        javaScriptClickOn(checkBoxAcceptAllPolicyLocator);
 
         return this;
     }
@@ -93,9 +82,4 @@ public class CheckBoxPolicy extends BasePage {
             javaScriptClickOn(checkBox);
         }
     }
-
-    private void selectOrDeselectAllCheckboxes() {
-        javaScriptClickOn(checkBoxAcceptAllPolicyLocator);
-    }
-
 }

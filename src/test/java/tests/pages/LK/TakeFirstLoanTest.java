@@ -40,7 +40,7 @@ public class TakeFirstLoanTest extends BaseTest {
         clearBrowserCookieAndStorage();
     }
 
-    // не надо или
+    // не надо или ЛУЧШЕ конструктор?? как  сделать
     static {
         try {
             accountFileWriter = new FileWriter(ACCOUNTS_LOG_FILE, true);
@@ -82,7 +82,7 @@ public class TakeFirstLoanTest extends BaseTest {
             actions().sendKeys(Keys.PAGE_UP).perform();
             $x("(//span[text()='Изменить'])[1]").shouldBe(Condition.visible).click();
             randomEmail = anotherEmail;
-            takeFirstLoan.enterEmail(randomEmail)
+            takeFirstLoan.enterPatronymic("Машина").enterEmail(randomEmail)
                     .clickNextButton();
             takeFirstLoan.enterPassportIdentifier("0000100000").enterPassportIssuerDate("01012020");
             actions().sendKeys(Keys.PAGE_DOWN).perform();
