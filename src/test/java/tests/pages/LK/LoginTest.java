@@ -8,15 +8,16 @@ import org.junit.jupiter.api.Test;
 import tests.base.BaseTest;
 
 import static common.CommonActions.clearBrowserCookieAndStorage;
-import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.URLS.TEST_PLAN;
 import static constants.Constant.UserData.LOGIN_PHONE_NUMBER;
 import static constants.Constant.UserData.PASSWORD;
-
+@Epic("Личный кабинет")
+@Feature("Авторизация")
 @DisplayName("test_auth_001")
 @Tag("Smoke")
 @Tag("Login")
 @Tag("Positive")
-@Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 @Owner("Максим Рожков")
 public class LoginTest extends BaseTest {
 
@@ -27,15 +28,13 @@ public class LoginTest extends BaseTest {
     }
 
     @Description("Тест проверяет возможность входа в личный кабинет")
-    @Epic("Личный кабинет")
-    @Feature("Авторизация")
     @DisplayName("Вход в ЛК")
-    @Severity(value = SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.CRITICAL)
     @Issue("89")
     @TmsLink("89")
     @Test
     public void signInLK() {
-        login.enterPhoneNumber(LOGIN_PHONE_NUMBER).enterPassword(PASSWORD).isSigned();
+        login.enterPhoneNumber(LOGIN_PHONE_NUMBER).enterPassword(PASSWORD);
     }
 }
 

@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byName;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.url;
-import static constants.Constant.URLS.LK_PAGE;
+import static constants.Constant.URLS.USER_LOANS_PAGE;
 import static constants.Constant.UserData.PAN_0;
 import static constants.Constant.UserData.SMS;
 import static constants.Locators.*;
@@ -249,7 +249,7 @@ public class TakeFirstLoan extends BasePage {
     }
 
     public void addCard() throws IOException, InterruptedException {
-        webdriver().shouldHave(url(LK_PAGE));
+        webdriver().shouldHave(url(USER_LOANS_PAGE));
         approveApplication();
         Selenide.refresh();
         divCloseNotice.shouldBe(visible).click();

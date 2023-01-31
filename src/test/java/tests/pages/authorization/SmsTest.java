@@ -13,7 +13,7 @@ import tests.base.BaseTest;
 import java.util.Objects;
 
 import static common.CommonActions.clearBrowserCookieAndStorage;
-import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.URLS.TEST_PLAN;
 import static constants.Constant.UserData.MOCK_PHONE_NUMBER;
 
 @DisplayName("test_auth_003")
@@ -24,7 +24,7 @@ import static constants.Constant.UserData.MOCK_PHONE_NUMBER;
 @Story(value = "Отправка СМС")
 @Severity(value = SeverityLevel.CRITICAL)
 @Owner(value = "Максим Рожков")
-@Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 @Tag("Smoke")
 public class SmsTest extends BaseTest {
 

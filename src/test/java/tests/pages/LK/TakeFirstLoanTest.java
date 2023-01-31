@@ -16,7 +16,7 @@ import java.io.IOException;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.actions;
 import static common.CommonActions.clearBrowserCookieAndStorage;
-import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.URLS.TEST_PLAN;
 import static constants.Constant.UserData.*;
 
 
@@ -64,7 +64,7 @@ public class TakeFirstLoanTest extends BaseTest {
     @Story(value = "Оформить займ")
     @Severity(value = SeverityLevel.CRITICAL)
     @Owner(value = "Максим Рожков")
-    @Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
+    @Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
     @Test
     public void takeLoan() throws IOException, InterruptedException {
         // Значения хендлеров не меняем, по умолчанию будет: 10тыс, 15 дней

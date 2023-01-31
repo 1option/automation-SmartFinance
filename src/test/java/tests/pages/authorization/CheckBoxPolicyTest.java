@@ -8,19 +8,19 @@ import org.junit.jupiter.api.Test;
 import tests.base.BaseTest;
 
 import static common.CommonActions.clearBrowserCookieAndStorage;
-import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.URLS.TEST_PLAN;
 import static constants.Constant.UserData.MOCK_PHONE_NUMBER;
 import static constants.Constant.UserData.PASSWORD;
 
 @DisplayName("test_auth_004")
 @Tag("Login")
-@Issue(value = "89")
-@TmsLink(value = "89")
-@Epic(value = "Страница авторизации/регистрации JoyMoney")
+@Issue("89")
+@TmsLink("89")
+@Epic("Страница авторизации/регистрации JoyMoney")
 @Story("Соглашение с условиями")
-@Owner(value = "Максим Рожков")
-@Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
-@Severity(value = SeverityLevel.CRITICAL)
+@Owner("Максим Рожков")
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
+@Severity(SeverityLevel.CRITICAL)
 @Tag("Smoke")
 public class CheckBoxPolicyTest extends BaseTest {
     @AfterAll

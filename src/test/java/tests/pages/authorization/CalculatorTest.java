@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import tests.base.BaseTest;
 
-import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.URLS.TEST_PLAN;
 
 @DisplayName("test_calculator_001")
 @Tag("Login")
@@ -18,12 +18,12 @@ import static constants.Constant.URLS.JIRA_PAGE;
 @Epic(value = "Страница авторизации/регистрации JoyMoney")
 @Feature(value = "Калькулятор")
 @Owner(value = "Максим Рожков")
-@Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 @Tag("Smoke")
 public class CalculatorTest extends BaseTest {
 
     @DisplayName("Изменить положения хэндлеров на ")
-    @Description(value = "Тест проверяет возможность взаимодействия со слайдером")
+    @Description("Тест проверяет возможность взаимодействия со слайдером")
     @ParameterizedTest(name = "{0} по оси X")
     @Execution(ExecutionMode.SAME_THREAD) // В одном потоке. Каждый вызов теста - новый инстанс
     @ValueSource(ints = {-100, 45, 70})

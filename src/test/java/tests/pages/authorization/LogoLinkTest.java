@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import tests.base.BaseTest;
 
-import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.URLS.TEST_PLAN;
 
 @DisplayName("test_navbar_001")
 @Tag("Navigation")
@@ -16,7 +16,7 @@ import static constants.Constant.URLS.JIRA_PAGE;
 @Feature(value = "Навигация")
 @Story(value = "Логотип")
 @Owner(value = "Максим Рожков")
-@Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 @Severity(value = SeverityLevel.MINOR)
 @Tag("Smoke")
 public class LogoLinkTest extends BaseTest {

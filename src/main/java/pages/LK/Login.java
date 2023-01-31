@@ -6,7 +6,7 @@ import pages.base.BasePage;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
-import static constants.Constant.URLS.LK_PAGE;
+import static constants.Constant.URLS.USER_LOANS_PAGE;
 import static constants.Locators.*;
 
 public class Login extends BasePage {
@@ -30,6 +30,6 @@ public class Login extends BasePage {
 
     @Step("Произошел вход в Личный кабинет")
     public void isSigned() {
-        webdriver().shouldHave(url(LK_PAGE));
+        webdriver().shouldHave(url(USER_LOANS_PAGE));
     }
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import tests.base.BaseTest;
 
-import static constants.Constant.URLS.JIRA_PAGE;
+import static constants.Constant.URLS.TEST_PLAN;
 import static constants.Constant.UserData.RECOVERY_PHONE_NUMBER;
 import static constants.Constant.UserData.RECOVERY_SMS;
 
@@ -20,7 +20,7 @@ import static constants.Constant.UserData.RECOVERY_SMS;
 @Epic("Страница авторизации/регистрации JoyMoney")
 @Feature("Восстановление")
 @Owner("Максим Рожков")
-@Link(name = "Тест кейсы(Google Sheets)", url = JIRA_PAGE)
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 @Tag("Smoke")
 public class RecoveryPasswordTest extends BaseTest {
 
