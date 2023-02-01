@@ -13,7 +13,7 @@ import static constants.Locators.buttonNextLocator;
 import static constants.Locators.checkBoxAcceptAllPolicyLocator;
 import static io.qameta.allure.Allure.step;
 
-public class CheckBoxPolicy extends BasePage {
+public class CheckBox extends BasePage {
 
     private final SelenideElement linkPolicyDocumentLocator = $x("//a[contains(@class, 'list__link')]");
     private final SelenideElement divDocumentContentLocator = $x("//div[contains(@class, 'DocumentModal_body')]");
@@ -43,7 +43,7 @@ public class CheckBoxPolicy extends BasePage {
     }
 
     @Step("Кликнуть по всем чекбоксам кроме первого")
-    public CheckBoxPolicy verifyDocumentCheckBoxes() {
+    public CheckBox verifyDocumentCheckBoxes() {
         selectDocumentCheckBoxes();
 
         step(("Все чекбоксы отмечены"), () -> buttonNextLocator.shouldBe(visible));
@@ -56,7 +56,7 @@ public class CheckBoxPolicy extends BasePage {
     }
 
     @Step("Кликнуть на первый чекбокс")
-    public CheckBoxPolicy verifyAllCheckBoxes() {
+    public CheckBox verifyAllCheckBoxes() {
         ElementsCollection allCheckBoxes = allCheckBoxesLocator;
 
         javaScriptClickOn(checkBoxAcceptAllPolicyLocator);

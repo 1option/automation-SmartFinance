@@ -17,8 +17,6 @@ public class Calculator extends BasePage {
     private final SelenideElement divCashHandler;
     private final SelenideElement divDaysHandler;
 
-
-
     // Двигать будем одновременно два хэндлера, по три раза
     public Calculator() {
         divCashHandler = $x("(//div[contains(@class, 'rc-slider-handle')])[1]");

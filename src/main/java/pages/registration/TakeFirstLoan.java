@@ -1,7 +1,9 @@
 package pages.registration;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import common.CommonActions;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
@@ -10,54 +12,69 @@ import pages.base.BasePage;
 import java.io.File;
 import java.io.IOException;
 
-import static com.codeborne.selenide.Condition.disappear;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byName;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.url;
-import static constants.Constant.URLS.USER_LOANS_PAGE;
+import static constants.Constant.URLS.USER_PERSONAL_DATA_JOB_PAGE;
 import static constants.Constant.UserData.PAN_0;
-import static constants.Constant.UserData.SMS;
 import static constants.Locators.*;
 
 public class TakeFirstLoan extends BasePage {
 
-    private final SelenideElement inputSurnameLocator = $(byName("surname"));
-    private final SelenideElement inputPatronymicLocator = $(byName("patronymic"));
-    private final SelenideElement inputBirthdateLocator = $(byName("birthdate"));
-    private final SelenideElement inputEmailLocator = $(byName("email"));
-    private final SelenideElement inputPassportIdentifierLocator = $(byName("passportIdentifier"));
-    private final SelenideElement inputPassportIssuerDateLocator = $(byName("passportIssueDate"));
-    private final SelenideElement inputPassportIssuerCodeLocator = $(byName("passportIssuerCode"));
-    private final SelenideElement liPassportIssuerNameValueLocator = $x("(//ul)[1]/li[1]");
-    private final SelenideElement inputBirtPlaceLocator = $(byName("birthPlace"));
-    private final SelenideElement inputUploadPassport = $(byName("uploadPassport"));
-    private final SelenideElement inputSnilsLocator = $(byName("snils"));
-    private final SelenideElement inputAddressRegCity = $(byName("addressRegCity"));
-    private final SelenideElement inputAddressRegStreet = $(byName("addressRegStreet"));
-    private final SelenideElement inputAddressRegHouse = $(byName("addressRegHouse"));
-    private final SelenideElement inputAddressRegFlat = $(byName("addressRegFlat"));
-    private final SelenideElement radioButtonAddressFactYesLocator = $x("(//span[contains(@class, 'radio')])[2]");
-    private final SelenideElement ulAddressLocator = $x("(//ul)[3]");
-    private final SelenideElement buttonSecondStageLocator = $x("(//button[text() = 'Далее'])[2]");
-    private final SelenideElement inputJobTypeLocator = $(byName("jobType"));
-    private final SelenideElement inputJobNameLocator = $(byName("jobCompanyName"));
-    private final SelenideElement inputJobTitleLocator = $(byName("jobTitle"));
-    private final SelenideElement inputSalaryLocator = $(byName("salary"));
-    private final SelenideElement inputExpensesAmountLocator = $(byName("expensesAmount"));
-    private final SelenideElement radioBankruptcyProcessedLocator = $x("(//span[contains(@class, 'radio')])[6]");
-    private final SelenideElement inputFriendPhone = $(byName("friendPhone"));
-    private final SelenideElement checkBoxAcceptAllFinalPolicy = $x("//input[@name='jobPolicy']");
-    private final SelenideElement buttonAccept = $x("//button[text() = 'Подтвердить']");
-    private final SelenideElement buttonAddCard = $x("//button[@id='add_card']");
-    private final SelenideElement inputPaymentTools = $x("//input[@name='paymentTools']");
-    private final SelenideElement iframePayment = $x("//iframe[@name='payment']");
-    private final SelenideElement inputPan = $x("//input[@name='pan']");
-    private final SelenideElement buttonGetMoney = $x("//button[@id='get_money']");
-    private final SelenideElement inputAsp = $x("//input[@name='asp']");
-    private final SelenideElement spanApplicationId = $x("//span[contains(@class, 'Numb')]");
-    private final SelenideElement divCloseNotice = $x("//div[contains(@class,'close')]");
-    private final SelenideElement spanCloseIframe = $x("//span[contains(@class, 'close')]");
+    private static final SelenideElement inputSurnameLocator = $(byName("surname"));
+    private static final SelenideElement inputPatronymicLocator = $(byName("patronymic"));
+    private static final SelenideElement inputBirthdateLocator = $(byName("birthdate"));
+    private static final SelenideElement inputEmailLocator = $(byName("email"));
+    private static final SelenideElement inputPassportIdentifierLocator = $(byName("passportIdentifier"));
+    private static final SelenideElement inputPassportIssuerDateLocator = $(byName("passportIssueDate"));
+    private static final SelenideElement inputPassportIssuerCodeLocator = $(byName("passportIssuerCode"));
+    private static final SelenideElement liPassportIssuerNameValueLocator = $x("(//ul)[1]/li[1]");
+    private static final SelenideElement inputBirtPlaceLocator = $(byName("birthPlace"));
+    private static final SelenideElement inputUploadPassport = $(byName("uploadPassport"));
+    private static final SelenideElement inputSnilsLocator = $(byName("snils"));
+    private static final SelenideElement inputAddressRegCity = $(byName("addressRegCity"));
+    private static final SelenideElement inputAddressRegStreet = $(byName("addressRegStreet"));
+    private static final SelenideElement inputAddressRegHouse = $(byName("addressRegHouse"));
+    private static final SelenideElement inputAddressRegFlat = $(byName("addressRegFlat"));
+    private static final SelenideElement radioButtonAddressFactYesLocator = $x("(//span[contains(@class, 'radio')])[2]");
+    private static final SelenideElement ulAddressLocator = $x("(//ul)[3]");
+    private static final SelenideElement buttonSecondStageLocator = $x("(//button[text() = 'Далее'])[2]");
+    private static final SelenideElement inputJobTypeLocator = $(byName("jobType"));
+    private static final SelenideElement inputJobNameLocator = $(byName("jobCompanyName"));
+    private static final SelenideElement inputJobTitleLocator = $(byName("jobTitle"));
+    private static final SelenideElement inputSalaryLocator = $(byName("salary"));
+    private static final SelenideElement inputExpensesAmountLocator = $(byName("expensesAmount"));
+    private static final SelenideElement radioBankruptcyProcessedLocator = $x("(//span[contains(@class, 'radio')])[6]");
+    private static final SelenideElement inputFriendPhone = $(byName("friendPhone"));
+    private static final SelenideElement checkBoxAcceptAllFinalPolicy = $x("//input[@name='jobPolicy']");
+    private static final SelenideElement buttonAccept = $x("//button[text() = 'Подтвердить']");
+    private static final SelenideElement buttonAddCard = $x("//button[@id='add_card']");
+    private static final SelenideElement inputPaymentTools = $x("//input[@name='paymentTools']");
+    private static final SelenideElement inputPaymentToolState = $x("//input[@name='paymentTools']//following-sibling::label");
+    private static final SelenideElement iframePayment = $x("//iframe[@name='payment']");
+    private static final SelenideElement inputPan = $x("//input[@name='pan']");
+    private static final SelenideElement buttonGetMoney = $x("//button[@id='get_money']");
+    private static final SelenideElement inputAsp = $x("//input[@name='asp']");
+    private static final SelenideElement inputPassword = $x("//input[@type='password']");
+    private static final SelenideElement spanApplicationId = $x("//span[contains(@class, 'Numb')]");
+    private static final SelenideElement divCloseNotice = $x("//div[contains(@class,'close')]");
+    private static final SelenideElement spanCloseIframe = $x("//span[contains(@class, 'close')]");
+    private static final SelenideElement labelSwitcherHealth = $x("(//input[contains(@type,'checkbox')]//following-sibling::label)[1]");
+    private static final SelenideElement labelSwitcherInsurance= $x("(//input[contains(@type,'checkbox')]//following-sibling::label)[2]");
+    private static final SelenideElement labelSwitcherCredit = $x("(//input[contains(@type,'checkbox')]//following-sibling::label)[3]");
+    private static final SelenideElement spanChangePersonalData = $x("(//span[text()='Изменить'])[1]");
+
+    @Step("Ввести номер телефона")
+    public TakeFirstLoan enterPhoneNumber(String phoneNumber) {
+        inputPhoneNumberLocator.shouldBe(visible).setValue(phoneNumber).pressEnter();
+        return this;
+    }
+
+    @Step("Ввести смс-код")
+    public TakeFirstLoan enterSms(String code) {
+        inputSmsCodeLocator.setValue(code).pressEnter();
+        return this;
+    }
 
     @Step("Ввести имя")
     public TakeFirstLoan enterUserName(String name) {
@@ -234,11 +251,93 @@ public class TakeFirstLoan extends BasePage {
     }
 
     @Step("Нажать Подтвердить")
-    public void clickOnAcceptButton() {
+    public TakeFirstLoan clickOnAcceptButton() {
         buttonAccept.shouldBe(visible).click();
+        return this;
     }
 
-    public TakeFirstLoan clickOnSecondStageButton() {
+    @Step("Добавить карту")
+    public TakeFirstLoan addCard() {
+        divCloseNotice.shouldBe(visible).click();
+        buttonAddCard.shouldBe(visible).click();
+        showHiddenUlAndSelectFirstLi(inputPaymentTools.shouldBe(visible));
+        actions().sendKeys(Keys.chord(Keys.TAB, Keys.ENTER)).build().perform();
+        actions().sendKeys(Keys.PAGE_DOWN).perform();
+        Selenide.switchTo().frame(iframePayment);
+        inputPan.shouldBe(visible).clear();
+        inputPan.shouldBe(visible).sendKeys(PAN_0);
+        inputPan.shouldBe(visible).pressEnter();
+        Selenide.switchTo().parentFrame();
+        javaScriptClickOn(spanCloseIframe);
+        iframePayment.shouldBe(disappear);
+        inputPaymentToolState.shouldNotHave(exactText("Ваша карта*"));
+        return this;
+    }
+
+    @Step("Выбрать услугу - Лекарственный полис")
+    public TakeFirstLoan getHealthService(){
+        labelSwitcherHealth.shouldBe(visible).click();
+        return this;
+    }
+
+    @Step("Выбрать услугу - Страхование")
+    public TakeFirstLoan getInsuranceService(){
+        labelSwitcherInsurance.shouldBe(visible).click();
+        return this;
+    }
+
+    @Step("Выбрать услугу - Кредитный рейтинг")
+    public TakeFirstLoan getCreditService(){
+        labelSwitcherCredit.shouldBe(visible).click();
+        return this;
+    }
+
+    @Step("Ввести ASP - {0}")
+    public TakeFirstLoan enterASP(String aspCode) {
+        if (inputAsp.exists()) {
+            inputAsp.sendKeys(aspCode);
+        } else {
+            inputPassword.sendKeys(aspCode);
+        }
+        return this;
+    }
+
+    @Step("Одобрение заявки (EP /application-approve)")
+    public TakeFirstLoan approveApplication() throws IOException, InterruptedException {
+        // Отправка http request POST
+        String applicationId = spanApplicationId.shouldBe(visible).getText();
+        applicationId = applicationId.replaceAll("[^0-9]", "");
+        CommonActions.httpPostApproveAgreement(applicationId);
+        Selenide.refresh();
+        return this;
+    }
+
+    public TakeFirstLoan fillPersonalDataAgainOrNot(String anotherRandomEmail) {
+        if (WebDriverRunner.url().equals(USER_PERSONAL_DATA_JOB_PAGE)) {
+            Selenide.refresh();
+            actions().sendKeys(Keys.PAGE_UP).perform();
+            spanChangePersonalData.shouldBe(Condition.visible).click();
+            enterPatronymic("Машина")
+                    .enterEmail(anotherRandomEmail)
+                    .clickNextButton()
+                    .enterPassportIdentifier("0000100000")
+                    .enterPassportIssuerDate("01012020");
+            actions().sendKeys(Keys.PAGE_DOWN).perform();
+            enterAddressRegFlat("1").clickOnSecondNextButton();
+            actions().sendKeys(Keys.PAGE_DOWN).perform();
+            acceptAllFinalPolicy().clickOnAcceptButton();
+        }
+        return this;
+    }
+
+    public TakeFirstLoan clickOnGetMoneyButton() {
+        actions().sendKeys(Keys.PAGE_DOWN).perform();
+        buttonGetMoney.shouldBe(visible).click();
+        actions().sendKeys(Keys.PAGE_DOWN).perform();
+        return this;
+    }
+
+    public TakeFirstLoan clickOnSecondNextButton() {
         buttonSecondStageLocator.shouldBe(visible).click();
         return this;
     }
@@ -247,32 +346,4 @@ public class TakeFirstLoan extends BasePage {
         buttonNextLocator.shouldBe(visible).click();
         return this;
     }
-
-    public void addCard() throws IOException, InterruptedException {
-        webdriver().shouldHave(url(USER_LOANS_PAGE));
-        approveApplication();
-        Selenide.refresh();
-        divCloseNotice.shouldBe(visible).click();
-        buttonAddCard.shouldBe(visible).click();
-        showHiddenUlAndSelectFirstLi(inputPaymentTools.shouldBe(visible));
-        actions().sendKeys(Keys.chord(Keys.TAB, Keys.ENTER)).build().perform();
-        Selenide.switchTo().frame(iframePayment);
-        inputPan.shouldBe(visible).clear();
-        inputPan.shouldBe(visible).sendKeys(PAN_0);
-        inputPan.shouldBe(visible).pressEnter();
-        Selenide.switchTo().parentFrame();
-        javaScriptClickOn(spanCloseIframe);
-        iframePayment.shouldBe(disappear);
-        actions().sendKeys(Keys.PAGE_DOWN).perform();
-        buttonGetMoney.shouldBe(visible).click();
-        inputAsp.shouldBe(visible).sendKeys(SMS);
-    }
-
-    public void approveApplication() throws IOException, InterruptedException {
-        // Отправка http request POST
-        String applicationId = spanApplicationId.shouldBe(visible).getText();
-        applicationId = applicationId.replaceAll("[^0-9]", "");
-        CommonActions.httpPostApproveAgreement(applicationId);
-    }
-
 }

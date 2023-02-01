@@ -23,7 +23,7 @@ public class Config {
     public static final Boolean CLEAR_DOWNLOADS = true;
 
     static {
-        Configuration.holdBrowserOpen = false;
+        Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = BROWSER_NAME;
         Configuration.screenshots = true; // Attach to Allure via Listener class

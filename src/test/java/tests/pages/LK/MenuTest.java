@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 import org.junitpioneer.jupiter.DisableIfTestFails;
 import tests.base.BaseTest;
 
-import static common.CommonActions.clearBrowserCookieAndStorage;
+import static common.CommonActions.clearBrowserCookiesAndStorage;
 import static constants.Constant.URLS.TEST_PLAN;
 import static constants.Constant.UserData.LOGIN_PHONE_NUMBER;
 import static constants.Constant.UserData.PASSWORD;
@@ -15,17 +15,18 @@ import static constants.Constant.UserData.PASSWORD;
 @Story("Боковое меню")
 @DisplayName("test_lk_sidebar_001")
 @Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
-@Issue("89")
-@TmsLink("89")
 @Tag("Navigation")
 @Tag("Smoke")
 @Tag("Login")
 @Tag("Positive")
 @Owner("Максим Рожков")
+@Issue("89")
+@TmsLink("89")
 @DisableIfTestFails
 public class MenuTest extends BaseTest {
 
     @BeforeEach
+    @Step("Войти в личный кабинет")
     void signIn() {
         login.enterPhoneNumber(LOGIN_PHONE_NUMBER).enterPassword(PASSWORD).isSigned();
     }
@@ -33,7 +34,7 @@ public class MenuTest extends BaseTest {
     @AfterAll
     @Step("Очистить куки")
     void clearCookie() {
-        clearBrowserCookieAndStorage();
+        clearBrowserCookiesAndStorage();
     }
 
         @Description("Тест проверяет возможность навигации по боковому меню в личном кабинете")

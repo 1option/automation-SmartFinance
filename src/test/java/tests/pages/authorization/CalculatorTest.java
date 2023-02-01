@@ -11,15 +11,15 @@ import tests.base.BaseTest;
 
 import static constants.Constant.URLS.TEST_PLAN;
 
+@Epic("Страница авторизации/регистрации JoyMoney")
+@Feature("Калькулятор")
 @DisplayName("test_calculator_001")
 @Tag("Login")
-@Issue(value = "89")
-@TmsLink(value = "89")
-@Epic(value = "Страница авторизации/регистрации JoyMoney")
-@Feature(value = "Калькулятор")
-@Owner(value = "Максим Рожков")
-@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 @Tag("Smoke")
+@Issue("89")
+@TmsLink("89")
+@Owner("Максим Рожков")
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 public class CalculatorTest extends BaseTest {
 
     @DisplayName("Изменить положения хэндлеров на ")

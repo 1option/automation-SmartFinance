@@ -10,8 +10,8 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.LK.Login;
 import pages.LK.Menu;
 import pages.authorization.Calculator;
-import pages.authorization.CheckBoxPolicy;
-import pages.authorization.LogoLink;
+import pages.authorization.CheckBox;
+import pages.authorization.Logo;
 import pages.authorization.Sms;
 import pages.registration.TakeFirstLoan;
 
@@ -33,8 +33,8 @@ public class BaseTest {
     protected Login login = new Login();
     protected Menu menu = new Menu();
     protected Sms sms = new Sms();
-    protected LogoLink logoLink = new LogoLink();
-    protected CheckBoxPolicy checkboxPolicy = new CheckBoxPolicy();
+    protected Logo logo = new Logo();
+    protected CheckBox checkboxPolicy = new CheckBox();
     protected Calculator calculator = new Calculator();
     protected TakeFirstLoan takeFirstLoan = new TakeFirstLoan();
 

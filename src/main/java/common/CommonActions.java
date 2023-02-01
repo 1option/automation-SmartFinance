@@ -54,7 +54,7 @@ public class CommonActions {
     /**
      * Clear cookies and local storage
      */
-    public static void clearBrowserCookieAndStorage() {
+    public static void clearBrowserCookiesAndStorage() {
         Selenide.clearBrowserLocalStorage();
         open("chrome://settings/clearBrowserData");
         $x("//html").shouldBe(visible).sendKeys(Keys.chord(Keys.TAB, Keys.ENTER));

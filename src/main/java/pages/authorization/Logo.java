@@ -7,7 +7,7 @@ import pages.base.BasePage;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class LogoLink extends BasePage {
+public class Logo extends BasePage {
 
     public final SelenideElement linkLogoLocator = $x("//a[contains(@class, 'logo')]");
     public final SelenideElement navHeaderMenuLocator = $x("//nav[contains(@class, 'header-menu')]");
@@ -16,7 +16,7 @@ public class LogoLink extends BasePage {
      * Click on link "JoyMoney" (logo)
      */
     @Step("Нажать на логотип JoyMoney")
-    public LogoLink clickOnLogo() {
+    public Logo clickOnLogo() {
         linkLogoLocator.shouldBe(visible).click();
         return this;
     }

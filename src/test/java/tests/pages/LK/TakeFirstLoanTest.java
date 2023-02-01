@@ -1,46 +1,46 @@
 package tests.pages.LK;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.Keys;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import tests.base.BaseTest;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.actions;
-import static common.CommonActions.clearBrowserCookieAndStorage;
 import static constants.Constant.URLS.TEST_PLAN;
 import static constants.Constant.UserData.*;
 
 
 @Disabled
+@Epic("Страница авторизации/регистрации JoyMoney")
+@Story("Оформить займ")
 @DisplayName("test_auth_005")
 @Tag("Loan")
 @Tag("Smoke")
+@Tag("Login")
+@Owner("Максим Рожков")
+@Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
 public class TakeFirstLoanTest extends BaseTest {
 
     private static final String randomPhoneNumber;
-    private static String randomEmail;
-    private static final String anotherEmail;
+    private static final String randomEmail;
+    private static final String anotherRandomEmail;
     private static final String accountId;
     private static final BufferedWriter accountsLogFileBuffer;
     private static final FileWriter accountFileWriter;
     private static final Faker userData = new Faker();
 
-    @AfterAll
-    @Step("Очистить куки")
-    public static void clearCookie() {
-        clearBrowserCookieAndStorage();
-    }
+//    @AfterAll
+//    @Step("Очистить куки")
+//    public static void clearCookie() {
+//        clearBrowserCookiesAndStorage();
+//    }
 
-    // не надо или ЛУЧШЕ конструктор?? как  сделать
     static {
         try {
             accountFileWriter = new FileWriter(ACCOUNTS_LOG_FILE, true);
@@ -50,88 +50,69 @@ public class TakeFirstLoanTest extends BaseTest {
         }
         accountId = userData.numerify("@id:######");
         randomEmail = userData.internet().emailAddress();
-        anotherEmail = userData.internet().emailAddress();
+        anotherRandomEmail = userData.internet().emailAddress();
         randomPhoneNumber = userData.numerify("79########0");
         saveAccountInfo();
     }
 
+    // Значения хендлеров не меняем, по умолчанию будет: 10тыс, 15 дней
     @DisplayName("Оформить займ")
-    @Tag("Login")
-    @Issue(value = "89")
-    @TmsLink(value = "89")
-    @Description(value = "Тест проверяет возможность оформить займа")
-    @Epic(value = "Страница авторизации/регистрации JoyMoney")
-    @Story(value = "Оформить займ")
-    @Severity(value = SeverityLevel.CRITICAL)
-    @Owner(value = "Максим Рожков")
-    @Link(name = "Тест кейсы(Google Sheets)", url = TEST_PLAN)
+    @Description("Тест проверяет возможность оформить займа")
+    @Issue("89")
+    @TmsLink("89")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     public void takeLoan() throws IOException, InterruptedException {
-        // Значения хендлеров не меняем, по умолчанию будет: 10тыс, 15 дней
-        login.enterPhoneNumber(randomPhoneNumber).enterSms(PASSWORD);
 
-        takeFirstLoan.acceptAllPolicy()
+        takeFirstLoan
+                .enterPhoneNumber(randomPhoneNumber)
+                .enterSms(PASSWORD)
+                .acceptAllPolicy()
                 .clickNextButton()
                 .enterUserName("Терминатор")
-                .clickNextButton();
-
-        personalInformation();
-
-        if (WebDriverRunner.url().equals("https://my-preprod.joy.money/profile/job")) {
-            Selenide.refresh();
-            actions().sendKeys(Keys.PAGE_UP).perform();
-            $x("(//span[text()='Изменить'])[1]").shouldBe(Condition.visible).click();
-            randomEmail = anotherEmail;
-            takeFirstLoan.enterPatronymic("Машина").enterEmail(randomEmail)
-                    .clickNextButton();
-            takeFirstLoan.enterPassportIdentifier("0000100000").enterPassportIssuerDate("01012020");
-            actions().sendKeys(Keys.PAGE_DOWN).perform();
-            takeFirstLoan.enterAddressRegFlat("1")
-                    .clickOnSecondStageButton();
-            actions().sendKeys(Keys.PAGE_DOWN).perform();
-            takeFirstLoan.acceptAllFinalPolicy()
-                    .clickOnAcceptButton();
-            //            login.enterPasswordOrSms("1234");
-        }
-        takeFirstLoan.addCard();
-    }
-
-    @Step
-    private void personalInformation() {
-        takeFirstLoan.enterSurname("Тэтысяча")
+                .clickNextButton()
+                .enterSurname("Тэтысяча")
                 .enterPatronymic("Машина")
                 .enterBirthdate("01.01.2000")
-                .enterEmail(randomEmail) // Случайный email
-                .clickNextButton() // Кнопка 'Далее'
+                .enterEmail(randomEmail)
+                .clickNextButton()
                 .enterPassportIdentifier("0000100000")
                 .enterPassportIssuerDate("01012020")
                 .enterPassportIssuerCode("123456")
                 .enterPassportIssuerName()
                 .enterBirtPlace("г Москва город Москва")
-                .uploadPassport(PASSPORT_FILE) // Загрузить паспорт
+                .uploadPassport(PASSPORT_FILE)
                 .enterSnils("012-345-678 19")
                 .enterAddressRegCity("гор Москва")
                 .enterAddressRegStreet("Лени")
                 .enterAddressRegHouse("1")
                 .enterAddressRegFlat("1")
-                .selectRadioButtonFactAddressYes() // Совпадает с местом прописки
-                .clickOnSecondStageButton() // Кнопка 'Далее'
-                .selectTypeJob() // Полная
+                .selectRadioButtonFactAddressYes()
+                .clickOnSecondNextButton()
+                .selectTypeJob()
                 .inputJobName("Скайнет")
                 .inputJobTitle("Агент")
                 .inputSalaryLocator("350000")
                 .inputExpensesAmount("300000")
-                .selectBankruptcyProcessed() // Не банкрот
+                .selectBankruptcyProcessed()
                 .inputFriendNumber("79999999999")
-                .acceptAllFinalPolicy() // Принять все соглашения
-                .clickOnAcceptButton(); // Кнопка 'Подтвердить'
-        login.enterPassword("1234");
+                .acceptAllFinalPolicy()
+                .clickOnAcceptButton()
+                .enterASP(ASP_CODE)
+                .fillPersonalDataAgainOrNot(anotherRandomEmail)
+                .approveApplication()
+                .addCard()
+                .getHealthService()
+                .getInsuranceService()
+                .getCreditService()
+                .clickOnGetMoneyButton()
+                .enterASP(ASP_CODE);
     }
 
     private static void saveAccountInfo() {
         if (ACCOUNTS_LOG_DIR.isDirectory()) {
             try {
-                String logData = String.format("[Test Account %s]\nPhone number:\n\t%s\n", accountId, randomPhoneNumber);
+                String logData = String.format("\n[Test Account %s]\nPhone number:\n\t%s\n", accountId, randomPhoneNumber);
                 accountsLogFileBuffer.write(logData);
                 accountsLogFileBuffer.close();
                 accountFileWriter.close();
